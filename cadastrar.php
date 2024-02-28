@@ -8,21 +8,39 @@ if($btnCadUsuario){
 	//var_dump($dados);
 	$dados['senha'] = password_hash($dados['senha'], PASSWORD_DEFAULT);
 	
-	$result_usuario = "INSERT INTO usuarios (nome, email, usuario, senha) VALUES (
+	// Inserir dados na tabela "usuarios"
+	$result_usuario = "INSERT INTO usuario (nome, email, usuario, senha) VALUES (
 					'" .$dados['nome']. "',
 					'" .$dados['email']. "',
 					'" .$dados['usuario']. "',
 					'" .$dados['senha']. "'
 					)";
 	$resultado_usario = mysqli_query($conn, $result_usuario);
+	
+	// Verificar se a inserção na tabela "usuarios" foi bem-sucedida
 	if(mysqli_insert_id($conn)){
-		$_SESSION['msgcad'] = "Usuário cadastrado com sucesso";
-		header("Location: login.php");
-	}else{
+		// Inserir dados na tabela "alunos" com referência ao ID do usuário recém-inserido
+		$id_usuario = mysqli_insert_id($conn);
+		$result_aluno = "INSERT INTO alunos (nome, matricula, id_usuario) VALUES (
+					'" .$dados['nome']. "',
+					'" .$dados['matricula']. "',
+					$id_usuario
+					)";
+		$resultado_aluno = mysqli_query($conn, $result_aluno);
+		
+		// Verificar se a inserção na tabela "alunos" foi bem-sucedida
+		if($resultado_aluno){
+			$_SESSION['msgcad'] = "Usuário cadastrado com sucesso";
+			header("Location: login.php");
+		} else {
+			$_SESSION['msg'] = "Erro ao cadastrar o aluno";
+		}
+	} else {
 		$_SESSION['msg'] = "Erro ao cadastrar o usuário";
 	}
 }
-?>
+?> 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>

@@ -4,6 +4,14 @@ if(empty($_SESSION['id'])){
 	$_SESSION['msg'] = "Área restrita";
 	header("Location: login.php");	
 }
+include ('conexao.php');
+$result_alunos = "SELECT * FROM `alunos` WHERE id = ".$_SESSION['id'];
+$resultado_alunos = mysqli_query($conn, $result_alunos);
+if($resultado_alunos){
+	$row_alunos = mysqli_fetch_assoc($resultado_alunos);
+		$_SESSION['nome'] = $row_alunos['nome'];
+		$_SESSION['matricula'] = $row_alunos['matricula'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,12 +88,32 @@ if(empty($_SESSION['id'])){
         <h5 class="modal-title" id="exampleModalLabel">Informações do usuário</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
+		<div class="modal-body">
+			<div class="d-flex flex-column-reverse flex-lg-row row">
+				<div class="form-group">
+					<div class="col-lg-8">
+						<div class="input-group input-group-sm col-lg-5">                              
+							<label class="input-group-addon" >Nome: </label>
+							<label><?php echo $_SESSION['nome'];?> </label>                              
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex flex-column-reverse flex-lg-row row">
+				<div class="form-group">
+					<div class="col-lg-8">
+						<div class="input-group input-group-sm col-lg-5">              
+							<label class="input-group-addon" >Matricula: </label>
+							<label><?php echo $_SESSION['matricula'];?> </label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button id="deslogar" type="button" class="btn btn-primary">Deslogar</button>
+        <button type="button" id="editar" class="btn btn-primary" >Editar</button>
+		<button type="button" id="salvar" class="btn btn-success" >Salvar</button>
+        <button id="deslogar" type="button" class="btn btn-secondary">Deslogar</button>
       </div>
     </div>
   </div>
@@ -94,9 +122,41 @@ if(empty($_SESSION['id'])){
 </body>
 <script>
 $(document).ready(function(){
+	$("#salvar").hide();
     $("#deslogar").click(function(){
 		window.location.href = "sair.php";// Substitua "pagina.html" pelo caminho da sua página
     });
+	$("#editar").click(function(){
+        var nome = "<?php echo $_SESSION['nome'];  ?>";
+		$(".modal-body").empty().append(
+			"<input id='nome-modal' type='text' class='form-control' value='"+nome+"'> "
+		);
+		$("#salvar").show();
+		$("#editar").hide();
+
+	})
+	$("#salvar").click(function(){
+
+	var nomeModal=$('#nome-modal').val(); 
+	var id= "<?php echo $_SESSION['id'];  ?>"
+	$.ajax({
+		type:'POST',
+		url:"crud.php",
+		data:{
+			nome:nomeModal,
+			id:id,
+			acao:"E"
+		},
+		success: function(data){
+			var i = JSON.parse(data);
+			//colocar aqui a mensagem que retorna do php
+			alert(i.mensagem);
+			debugger;
+			window.location.reload();
+		}
+	
+	})
+	})
 });
 </script>
 </html>
