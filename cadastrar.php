@@ -52,7 +52,7 @@ if($btnCadUsuario){
 		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="/assets/css/style.css">
-		<title>Celke - Cadastrar</title>
+		<title>Cadastrar</title>
 	</head>
 	<body>
 		<?php
@@ -69,7 +69,7 @@ if($btnCadUsuario){
 	               		
 	               	</div>
 	            </div> 
-				<div class="main-login main-center">
+				<div class="main-login2 main-center">
 					<form class="form-horizontal" method="post" action="#">
 						
 						<div class="form-group">
@@ -77,7 +77,7 @@ if($btnCadUsuario){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" maxlength="18" class="form-control" name="nome" id="name"  placeholder="digite seu nome"/>
+									<input type="text" required maxlength="18" class="form-control" name="nome" id="name"  placeholder="digite seu nome"/>
 								</div>
 							</div>
 						</div>
@@ -86,7 +86,7 @@ if($btnCadUsuario){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" maxlength="32" class="form-control" name="email" id="email"  placeholder="Entre com seu email"/>
+									<input type="text" required maxlength="32" class="form-control" name="email" id="email"  placeholder="Entre com seu email"/>
 								</div>
 							</div>
 						</div>
@@ -95,7 +95,7 @@ if($btnCadUsuario){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" maxlength="12" class="form-control" name="usuario" id="username"  placeholder="Entre com seu usuario"/>
+									<input type="text" required maxlength="12" class="form-control" name="usuario" id="username"  placeholder="Entre com seu usuario"/>
 								</div>
 							</div>
 						</div>
@@ -104,7 +104,7 @@ if($btnCadUsuario){
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" maxlength="12" class="form-control" name="senha" id="password"  placeholder="Entre com sua senha"/>
+									<input type="password" required maxlength="12" class="form-control" name="senha" id="password"  placeholder="Entre com sua senha"/>
 								</div>
 							</div>
 						</div>
