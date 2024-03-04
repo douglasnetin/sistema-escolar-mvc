@@ -20,9 +20,7 @@
       </nav>
     </header>
     
-    <main class="hero">
-        <a href="agenda.php">Marcar Horario</a>
-    </main>
+    <main class="hero"></main>
     <footer class="rodape">
         <div>
             <p>Entre em contato conosco:</p>

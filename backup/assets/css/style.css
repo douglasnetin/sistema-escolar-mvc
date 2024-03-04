@@ -1,0 +1,123 @@
+body, html{
+    height: 100%;
+    background-repeat: no-repeat;
+    background-color: #61b8f1;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+   
+}
+
+.main{
+    margin-top: 70px;
+}
+
+h1.title { 
+   font-size: 50px;
+   font-family: 'Inter', sans-serif;
+   font-weight: 400; 
+}
+
+hr{
+   width: 10%;
+   color: #fff;
+}
+
+.form-group{
+   margin-bottom: 20px;
+}
+
+label{
+   margin-bottom: 15px;
+}
+
+input,
+input::-webkit-input-placeholder {
+   font-size: 15px;
+   padding-top: 5px;
+}
+
+.main-login2{
+    background-color: #fcf3f3;
+   /* shadows and rounded borders */
+   -moz-border-radius: 2px;
+   -webkit-border-radius: 2px;
+   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   border-radius: 15px;
+   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.705);
+
+}
+
+.main-center{
+    margin-top: 30px;
+    margin: 0 auto;
+    max-width: 330px;
+   padding: 40px 40px;
+
+}
+
+.login-button{
+   margin-top: 15px;
+}
+
+.login-register{
+    
+        font-size: 11px;
+        text-align: center;
+        margin-top: 10px; /* Adicionando espaçamento entre o botão e o texto */
+    
+}
+.login-register1{
+    
+    font-size: 11px;
+    text-align: left;
+    margin-top: 10px; /* Adicionando espaçamento entre o botão e o texto */
+
+}
+.btn {
+    background-color: #9feeb9;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+    margin: 0 !important;
+    width: 100%; /* Definindo a largura do botão como 100% */
+}
+.btn2 {
+    background-color: #9feeb9;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+    margin: 0 !important;
+    height: 35px;
+    width: 225px; /* Definindo a largura do botão como 100% */
+}
+.btn2:hover {
+    transform: scale(1.05);
+    background-color: #26fd79;
+}
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #26fd79;
+}
+h3{
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+.login-register-wrapper {
+    margin-top: 15px; /* Adicionando espaçamento entre o botão e o texto abaixo */
+}
+.main-login2{
+    background-color: #defaff;
+   -moz-border-radius: 45px;
+   -webkit-border-radius: 15px;
+   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.705);
+}
