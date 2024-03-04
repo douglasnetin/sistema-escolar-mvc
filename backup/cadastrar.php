@@ -19,9 +19,22 @@ if($btnCadUsuario){
 	
 	// Verificar se a inserção na tabela "usuarios" foi bem-sucedida
 	if(mysqli_insert_id($conn)){
-				// Verificar se a inserção na tabela "alunos" foi bem-sucedida
+		// Inserir dados na tabela "alunos" com referência ao ID do usuário recém-inserido
+		$id_usuario = mysqli_insert_id($conn);
+		$result_aluno = "INSERT INTO alunos (nome, matricula, id_usuario) VALUES (
+					'" .$dados['nome']. "',
+					'" .$dados['matricula']. "',
+					$id_usuario
+					)";
+		$resultado_aluno = mysqli_query($conn, $result_aluno);
+		
+		// Verificar se a inserção na tabela "alunos" foi bem-sucedida
+		if($resultado_aluno){
 			$_SESSION['msgcad'] = "Usuário cadastrado com sucesso";
 			header("Location: login.php");
+		} else {
+			$_SESSION['msg'] = "Erro ao cadastrar o aluno";
+		}
 	} else {
 		$_SESSION['msg'] = "Erro ao cadastrar o usuário";
 	}

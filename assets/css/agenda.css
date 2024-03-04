@@ -1,0 +1,134 @@
+.card-box {
+    
+    width: 100%; /* Largura do card box */
+    max-width: 600px; /* Largura máxima do card box */
+    margin: 0 auto; /* Centraliza o card box horizontalmente */
+    background-color: #fff; /* Cor de fundo do card box */
+    padding: 20px; /* Espaçamento interno do card box */
+    border-radius: 10px; /* Borda arredondada do card box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra do card box */
+    margin-top:2%;
+}
+
+.campo {
+    margin-bottom: 20px; /* Espaçamento entre os campos do formulário */
+}
+
+.botao {
+    margin-top: 20px; /* Espaçamento acima do botão */
+    display: block; /* Garante que o botão ocupa a largura total do card box */
+    width: 100%; /* Define a largura do botão igual à largura do card box */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#titulo {
+    font-family: sans-serif;
+    color: #000000	;
+    margin-left: 7%;
+} 
+
+#subtitulo {
+    font-family: sans-serif;
+    color: #FF69B4;
+    margin-left: 10%;
+} 
+
+#check{
+    display: inline-block;
+}
+
+fieldset {
+    border: 0;
+}
+
+body{
+    background-color: #F0F8FF;
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #59429d;
+    justify-content: center;
+    background-image: url('https://f.i.uol.com.br/fotografia/2023/12/12/17024042346578a08a9a782_1702404234_5x2_rt.jpg');
+      background-size: cover; /* Para garantir que a imagem cubra toda a área */
+      background-repeat: no-repeat; /* Para evitar que a imagem seja repetida */
+      background-attachment: fixed;
+}
+
+input, select, textarea, button {
+    font-family: sans-serif;
+    font-size: 1em;
+    color: #000000;
+    border-radius: 5px;
+}
+
+/* Elementos de classe "grupo" nos estados das pseudoclasses "before" e "after" */
+.grupo:before, .grupo:after {
+    display: table;
+}
+
+/* Elementos de classe "grupo" no estado da pseudoclasse "after" */
+.grupo:after {
+    clear: both;
+}
+
+/* Elementos de classe "campo" */
+.campo {
+    margin-bottom: 1em;
+}
+
+/* Elementos de classe "campo" de tag <label> */
+.campo label {
+    margin-bottom: 0.2em;
+    color: #000000;
+    display: block;
+}
+
+/* Elementos de classe "campo" ou "grupo" de tag <fieldset> */
+fieldset.grupo .campo {
+    float:  left;
+    margin-right: 1em;
+}
+
+/* Elementos de classe "campo" das tags <input> com atributo text e email, da tag <select> e da tag <textarea>*/
+.campo input[type="text"], .campo input[type="email"], .campo select, .campo textarea {
+    padding: 0.2em;
+    border: 1px solid #59429d;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    display: block;
+}
+
+/* Elementos de classe "campo" de tag <select> e <option>*/
+.campo select option {
+    padding-right: 1em;
+}
+
+/* Elemento de classe "campo" com tag <input>, <select> e <textarea> tocas com estado da pseudoclasse "focus"*/
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+    background: #E0E0F8;
+}
+
+/* Elemento de classe "botao" */
+.botao {
+    font-size: 1.2em;
+    background: #000000;
+    border: 0;
+    margin-bottom: 1em;
+    color: #ffffff;
+    padding: 0.2em 0.6em;
+}
+
+/* Elemento de classe "botao" com o estado da pseudoclasse "hover" */
+.botao:hover {
+    background: #CCBBFF;
+    box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+    text-shadow: none;
+}
+
+/* Elementos de classe botão e de tag <select> */
+.botao, select{
+    cursor: pointer;
+}
