@@ -17,6 +17,8 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
 </head>
 <body style="height: 90vh;">
   <div class="container-fluid h-100 ">
@@ -101,7 +103,7 @@
         <div class="col-md-6">
             <div class="campo">
                 <label for="nome"><strong>Nome</strong></label>
-                <input type="text" name="nome" id="nome" style="width:100%;" required>
+                <input type="text" maxlength="45" name="nome" id="nome" style="width:100%;" required>
             </div>
         </div>
         <div class="col-md-6">
@@ -135,16 +137,6 @@
                 <div class="input-group">
                 <select name="plano" id="plano" required style="width:100%;">
                     <option selected disabled value="">Selecione</option>
-                    <option value="1">08:00</option>
-                    <option value="2">09:00</option>
-                    <option value="3">10:00</option>
-                    <option value="4">11:00</option>
-                    <option value="5">12:00</option>
-                    <option value="6">13:00</option>
-                    <option value="7">14:00</option>
-                    <option value="8">15:00</option>
-                    <option value="9">16:00</option>
-                    <option value="10">17:00</option>
                 </select>
                 </div>
             </div>
@@ -183,7 +175,8 @@
   </div>
   <script>
     $(function() {
-      // Configurando o datepicker
+      $('#telefone').mask('(00) 00000-0000');
+      selectPlanos();
       $("#data").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
@@ -197,12 +190,13 @@
       });
      
       function agendamento(){
+        if(!validarAgendamento()){return false;}
           var nome = $("#nome").val();
           var telefone = $("#telefone").val();
           var horario = $("#horario").val();
           var data = $("#data").val();
-          var pagamento = $("#data").val();
-          var plano = $("#data").val();
+          var pagamento = $("#pagamento").val();
+          var plano = $("#plano").val();
           debugger;
           $.ajax({
             type: "POST",
@@ -213,7 +207,8 @@
                 horario: horario,
                 data: data,
                 pagamento:pagamento,
-                plano:plano
+                plano:plano,
+                acao:"I"
             },
             success: function(response) {
               var dados = JSON.parse(response);
@@ -237,6 +232,67 @@
         window.location.href="index.php";
       });
     });
+
+    function selectPlanos(){
+         
+          debugger;
+          $.ajax({
+            type: "POST",
+            url: "processar_agendamento.php", 
+            data: {
+                acao:"selectPlanos"
+            },
+            success: function(response) {
+              var dados = JSON.parse(response);
+             debugger;
+             var html = "";
+             for(var i = 0; i < dados.length; i++){
+              
+              html+=`<option value="${dados[i].nome_plano}">${dados[i].nome_plano}</option>`;
+
+             }
+              $("#plano").append(html);
+            },
+            error: function(xhr, status, error) {
+              toastr.error("Erro ao criar agendamento: " + error);
+            }
+          });
+    }
+  
+    function validarAgendamento(){
+       var nome = $("#nome").val();
+       var telefone = $("#telefone").val();
+       var data = $("#data").val();
+       var horario = $("#horario").val();
+       var plano = $("#plano").val();
+       var pagamento = $("#pagamento").val();
+      debugger;
+       if(nome==""){
+        toastr.error("Nome não pode ser vazio!");
+        return false;
+       }
+       if(telefone==""){
+        toastr.error("Telefone não pode ser vazio!");
+        return false;
+       }
+       if(data==""){
+        toastr.error("Data não pode ser vazio!");
+        return false;
+       }
+       if(horario=="" || horario==null){
+        toastr.error("Horario não pode ser vazio!");
+        return false;
+       }
+       if(plano=="" || plano==null){
+        toastr.error("Plano não pode ser vazio!");
+        return false;
+       }
+       if(pagamento=="" || pagamento==null){
+        toastr.error("Pagamento não pode ser vazio!");
+        return false;
+       }
+       return true;
+    }
   </script>
 </body>
 </html>

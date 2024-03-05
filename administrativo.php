@@ -16,7 +16,7 @@ $resultadoUsuario = mysqli_query($conn, $obterUsuario);
 $usuario = mysqli_fetch_assoc($resultadoUsuario);
 
 // Consulta SQL para obter os dados do agendamento
-$obterAgendamento = "SELECT a.id AS id_agendamento, a.*, u.* FROM agendamento a, usuario u";
+$obterAgendamento = "SELECT * FROM agendamento";
 $resultadoAgendamento = mysqli_query($conn, $obterAgendamento);
 
 // consulta sql para obter os planos 
@@ -131,14 +131,15 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
           <table>
               <thead>
                   <tr>
-                      <th colspan="5" style="text-align: center;">Agendamentos</th>
+                      <th colspan="7" style="text-align: center;">Agendamentos</th>
                   </tr>
                   <tr>
-                      <th>Nome</th>
-                      <th>Data</th>
-                      <th>Horário</th>
-                      <th>Criação</th>
-                      <th>Status</th>
+                      <th style="text-align: center;">Nome</th>
+                      <th style="text-align: center;">Telefone</th>
+                      <th style="text-align: center;">Plano</th>
+                      <th style="text-align: center;">Data</th>
+                      <th style="text-align: center;">Horário</th>
+                      <th style="text-align: center;">Status</th>
                   </tr>
               </thead>
               <tbody>
@@ -148,11 +149,12 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
                             ?>
                             <tr>
                             <td style="text-align: center;"><?php echo $row['nome']; ?></td>
+                            <td style="text-align: center;"><?php echo $row['telefone']; ?></td>
+                            <td style="text-align: center;"><?php echo $row['plano']; ?></td>
                             <td style="text-align: center;"><?php echo $row['data_agendamento']; ?></td>
                             <td style="text-align: center;"><?php echo $row['hora_agendamento']; ?></td>
-                            <td style="text-align: center;"><?php echo $row['data_criacao']; ?></td>
                             <td style="text-align: center;">
-                                <select id="status_<?php echo $row['id_agendamento']; ?>" onchange="editarStatusAgendamentos(<?php echo $row['id_agendamento']; ?>)">
+                                <select id="status_<?php echo $row['id']; ?>" onchange="editarStatusAgendamentos(<?php echo $row['id']; ?>)">
                                     <option value="Pendente" <?php if($row['status'] == 'Pendente') echo 'selected'; ?>>Pendente</option>
                                     <option value="Confirmado" <?php if($row['status'] == 'Confirmado') echo 'selected'; ?>>Confirmado</option>
                                     <option value="Cancelado" <?php if($row['status'] == 'Cancelado') echo 'selected'; ?>>Cancelado</option>
@@ -417,6 +419,7 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
             var dados = JSON.parse(response);
             if(dados.codigo==0){
             toastr.success(dados.mensagem);
+            window.location.href = "administrativo.php";
             $("#nomePlano").val("");
             $("#txtLabel").val("");
             $("#detalhePlano").val("");
@@ -425,7 +428,7 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
             }else{
               toastr.error(dados.mensagem);
             }
-          
+           
         },
         error: function(xhr, status, error) {
             toastr.error("Erro ao criar plano: " + error);
@@ -464,7 +467,9 @@ function deletar(id) {
 }
 function editarStatusAgendamentos(id) {
   var status = $(`#status_${id}`).val();
-  
+  debugger;
+  if(!confirm("Tem certeza que deseja editar o status?")){return false;}
+
     $.ajax({
         type: "POST",
         url: "admcrud.php",
