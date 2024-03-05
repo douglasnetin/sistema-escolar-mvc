@@ -7,15 +7,25 @@ $acao = $_POST['acao'];
 // Inicializa um array para armazenar a resposta
 $response = array();
 
-// Verifica a ação
 if ($acao == "plano") {
     // Ação para inserir um novo plano
     $nomePlano = $_POST['nomePlano'];
     $txtLabel = $_POST['txtLabel'];
     $detalhePlano = $_POST['detalhePlano'];
     $preco = $_POST['preco'];
+	
+    $sql_verificar_nome = "SELECT nome_plano FROM plano WHERE nome_plano = ?";
+    $stmt_verificar_nome = $conn->prepare($sql_verificar_nome);
+    $stmt_verificar_nome->bind_param("s", $nomePlano);
+    $stmt_verificar_nome->execute();
+    $stmt_verificar_nome->store_result();
 
-    // Prepara a declaração SQL para inserção
+if ($stmt_verificar_nome->num_rows > 0) {
+        // Se o nome do plano já existe, retorna uma mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "O nome do plano já existe.";
+    } else {
+  // Prepara a declaração SQL para inserção
     $sql = "INSERT INTO plano (nome_plano, txt_label, descricao, preco_plano) VALUES (?, ?, ?, ?)";
 
     // Prepara a declaração SQL
@@ -39,9 +49,13 @@ if ($acao == "plano") {
         $response['codigo'] = 1;
         $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
     }
-
     $stmt->close();
-} elseif ($acao == "E") {
+   }
+
+ 
+     $stmt_verificar_nome->close();
+  
+}elseif ($acao == "E") {
     // Ação para excluir um plano
     $cod_id = $_POST['idPlano'];
 
@@ -108,9 +122,50 @@ if ($acao == "plano") {
     $response['mensagem'] = "Ação inválida: " . $acao;
 }
 
-// Retorna a resposta como JSON
-echo json_encode($response);
 
-// Fecha a conexão com o banco de dados
+
+if ($acao == "devedores") {
+    // Ação para inserir um novo plano
+    $status = $_POST['status'];
+    $preco = $_POST['preco'];
+
+    // Prepara a declaração SQL para inserção
+    $sql = `SELECT 
+    (SELECT SUM(p1.preco_plano) 
+     FROM agendamento a1 , plano p1  
+     WHERE a1.status = 'pendente') AS preco_total_pendente,
+     
+    (SELECT SUM(p2.preco_plano) 
+     FROM agendamento a2 
+     , plano p2  
+     WHERE a2.status = 'confirmado') AS preco_total_completo;
+`;
+
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Define os parâmetros e executa a declaração
+        $stmt->bind_param($nome, $status,$preco);
+        if ($stmt->execute()) {
+            // Se a inserção for bem-sucedida, define o código como 0 e a mensagem de sucesso
+            $response['codigo'] = 0;
+            $response['mensagem'] = "Dados inseridos com sucesso.";
+        } else {
+            // Se houver um erro na inserção, define o código como 1 e a mensagem de erro
+            $response['codigo'] = 1;
+            $response['mensagem'] = "Erro ao inserir dados: " . $stmt->error;
+        }
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+   
+    $stmt->close();
+}
+echo json_encode($response);
 $conn->close();
+
 ?>
