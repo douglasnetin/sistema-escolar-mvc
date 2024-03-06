@@ -13,6 +13,9 @@ closeBtn.addEventListener('click', () => {
 });
 
 
+
+
+
 darkMode.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode-variables');
     darkMode.querySelector('span:nth-child(1)').classList.toggle('active');

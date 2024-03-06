@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if(isset($_SESSION['id'])) {
+    $id = $_SESSION['id'];
+} else {
+    header("Location: index.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +22,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet"> 
+    <script src="plugins/jquery-2.2.4.min.js"></script>
+    <script src="plugins/jquery.appear.min.js"></script>
+    <script src="plugins/jquery.easypiechart.min.js"></script> 
     <title>Responsive Dashboard Design #1 | AsmrProg</title>
 </head>
 
@@ -88,7 +102,7 @@
                     </span>
                     <h3>New Login</h3>
                 </a>
-                <a href="#">
+                <a href="../sair.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -106,49 +120,54 @@
                 <div class="sales">
                     <div class="status">
                         <div class="info">
-                            <h3>Total Sales</h3>
-                            <h1>$65,024</h1>
+                            <h3>Caixa</h3>
+                            <h1 id="total_caixa"></h1>
                         </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+81%</p>
-                            </div>
-                        </div>
+                        <br>
+                        <div class="b-skills">
+                             <div class="skill-item center-block">
+                                 <div class="chart-container">
+                                     <div class="chart" data-percent="65" data-bar-color="#23afe3">
+                                         <span class="percent" data-after="%">65</span>
+                                     </div>
+                                 </div>
+                                 <p>TOTAL CAIXA</p>
+                             </div>
+                        </div> 
                     </div>
                 </div>
                 <div class="visits">
                     <div class="status">
-                        <div class="info">
-                            <h3>Site Visit</h3>
-                            <h1>24,981</h1>
+                    <div class="info">
+                            <h3>Caixa</h3>
+                            <h1 id="total_completos"></h1>
                         </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>-48%</p>
-                            </div>
-                        </div>
+                        <div class="b-skills">
+                             <div class="skill-item center-block">
+                                 <div class="chart-container" id="porcentagem_completo">
+                                     
+                                 </div>
+                                 <p>COMPLETOS</p>
+                             </div>
+                        </div> 
+                        
                     </div>
                 </div>
                 <div class="searches">
                     <div class="status">
-                        <div class="info">
-                            <h3>Searches</h3>
-                            <h1>14,147</h1>
+                    <div class="info">
+                            <h3>Caixa</h3>
+                            <h1 id="total_pendente"></h1>
                         </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+21%</p>
-                            </div>
-                        </div>
+                        <div class="b-skills">
+                             <div class="skill-item center-block">
+                                 <div class="chart-container" id="porcentagem_pendente">
+                                    
+                                 </div>
+                                 <p >PENDENTES</p>
+                             </div>
+                        </div> 
+                    
                     </div>
                 </div>
             </div>
@@ -303,6 +322,8 @@
     
     <script src="consulta.js"></script>
     <script src="index.js"></script>
+    
+    
 </body>
 <!-- MODAL -->
 <div id="ex1" class="modal">
@@ -344,5 +365,6 @@
     <!--FINAL MODAL BODY -->
 
 </div>
-<!-- FINAL MODAL -->
+
+
 </html>
