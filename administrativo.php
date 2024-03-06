@@ -9,6 +9,14 @@ if(isset($_SESSION['id'])) {
 }
 
 include_once("conexao.php");
+//consulta sql para obter status do plano e valor devido
+$obterdevedores = "SELECT ";
+$obterdevedores .= "(SELECT SUM(p.preco_plano) FROM agendamento a JOIN plano p ON a.plano = p.nome_plano WHERE"; 
+$obterdevedores .= " a.status = 'confirmado') AS preco_total_completo ,";  
+$obterdevedores .= "(SELECT SUM(p.preco_plano) FROM agendamento a JOIN plano p ON a.plano = p.nome_plano WHERE ";
+$obterdevedores .= " a.status = 'pendente') AS preco_total_pendente,";
+$obterdevedores .= "(SELECT count(id) from agendamento  WHERE status = 'cancelado') AS total_cancelados";
+$resultadodevedores = mysqli_query($conn, $obterdevedores);
 
 // Consulta SQL para obter os dados do usuário
 $obterUsuario = "SELECT * FROM usuario WHERE id = $id";
@@ -107,10 +115,10 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
             <p>Support</p>
           </li>
         </a>
-        <a href="#">
+        <a id="sair" style="cursor: pointer;">
           <li class="sidebar-link">
-            <span class="material-symbols-rounded"> security </span>
-            <p>Privacy</p>
+            <span class="material-symbols-rounded"> logout </span>
+            <p >Sair</p>
           </li>
         </a>
       </ul>
@@ -269,28 +277,33 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
       </div>
     </div>
     <div class="announcements">
-      <p class="section-title">Announcements</p>
+      <p class="section-title">Dados Pagamento</p>
       <div>
         <div>
-          <p>Site Maintenance</p>
-          <p>
-            Vestibulum condimentum tellus lacus, in accumsan elit maximus ac.
-            Donec hendrerit sodales congue...
-          </p>
+                <!--campo para dados mensas--> 
+                <p>Pagamentos Pendente</p>
+                  <?php
+                    if (mysqli_num_rows($resultadodevedores) > 0) {
+                        while($row = mysqli_fetch_assoc($resultadodevedores)) {
+                          $totalcompleto=$row['preco_total_completo'];
+                          $totalcancelado=$row['total_cancelados'];
+                            ?>
+                        <p>R$ <?php echo $row['preco_total_pendente']; ?></p>
+                        <?php
+                        }         
+                    }
+                  ?>
         </div>
         <div>
-          <p>Community Share Day</p>
-          <p>
-            Nam vel lectus tincidunt, rutrum nulla eu, ornare libero. Aliquam
-            dictum accumsan porttitor...
-          </p>
+        <p>Pagamentos Completos</p>
+                  <?php
+                  echo '<p>R$ '.$totalcompleto.'</p>';
+                  ?>
         </div>
         <div>
-          <p>Updated Privacy Policy</p>
-          <p>
-            Phasellus efficitur nisi eget elit consectetur, eget condimentum
-            ante auctor. Cras frigilla sagittis sem in mattis...
-          </p>
+          <p>Agendamentos cancelados</p>
+          
+           <?php echo '<h5 class="text-center">'.$totalcancelado.'</h5>'; ?>
         </div>
       </div>
     </div>
@@ -416,15 +429,19 @@ $resultadoPlano = mysqli_query($conn, $obterPlanos);
             acao: 'plano'
         },
         success: function(response) {
+          debugger;
             var dados = JSON.parse(response);
             if(dados.codigo==0){
             toastr.success(dados.mensagem);
-            window.location.href = "administrativo.php";
             $("#nomePlano").val("");
             $("#txtLabel").val("");
             $("#detalhePlano").val("");
             $("#preco").val("");
             $("#cancelar").click();
+            // Redireciona para uma nova página após 3 segundos
+          setTimeout(function() {
+           window.location.href = 'administrativo.php';
+}, 3000); // 3000 milissegundos = 3 segundos
             }else{
               toastr.error(dados.mensagem);
             }
@@ -440,6 +457,10 @@ $("#salvar").on("click", function() {
     inserirPlano();
 });
 
+$("#sair").on("click", function() {
+  debugger;
+    window.location.href="sair.php";
+});
 function deletar(id) {
     if (!confirm("Deseja excluir este plano?")) {
         return false;
@@ -482,6 +503,7 @@ function editarStatusAgendamentos(id) {
         
             var dados = JSON.parse(response);
             if(dados.codigo==0){
+            window.location.href = "administrativo.php";
             toastr.success(dados.mensagem);
             }else{
               toastr.error(dados.mensagem);
@@ -492,6 +514,29 @@ function editarStatusAgendamentos(id) {
         }
     });
   }
+
+  function devedores() {
+    $.ajax({
+        type: "POST",
+        url: "admcrud.php",
+        data: {
+            acao: 'devedores'
+        },
+        success: function(response) {
+            var dados = JSON.parse(response);
+            if(dados.codigo==0){
+            toastr.success(dados.mensagem);
+            window.location.href = "administrativo.php";
+            }else{
+              toastr.error(dados.mensagem);
+            }
+           
+        },
+        error: function(xhr, status, error) {
+            toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
 </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

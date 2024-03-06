@@ -19,7 +19,7 @@ if($btnLogin){
 				$_SESSION['nome'] = $row_usuario['nome'];
 				$_SESSION['email'] = $row_usuario['email'];
 				$_SESSION['nivel'] = $row_usuario['nivel'];
-				header("Location: administrativo.php");
+				header("Location: /Adm/index.php");
 			}else{
 				$_SESSION['msg'] = "Login e senha incorreto!";
 				header("Location: login.php");
