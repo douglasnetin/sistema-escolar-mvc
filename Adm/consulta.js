@@ -5,6 +5,8 @@ $(function() {
     });
     obterAgendamento();
     obterPlano();
+    devedores();
+    Tema();
 });
 
 function obterAgendamento() {
@@ -192,7 +194,7 @@ function deletarPlano(idPlano) {
                 id_plano: idPlano
             },
             success: function(response) {
-                debugger;
+              
                 var resultado = JSON.parse(response);
                 if (resultado.codigo == 0) {
                     toastr.success(resultado.mensagem);
@@ -209,3 +211,131 @@ function deletarPlano(idPlano) {
         });
     }
 }
+
+function devedores() {
+    $.ajax({
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            acao: 'devedores'
+        },
+        success: function(response) {
+            var dados = JSON.parse(response);
+          $("#total_pendente").append(dados.preco_total_pendente);
+          $("#total_completos").append(dados.preco_total_completo);
+          $("#total_caixa").append(dados.total_caixa);
+
+          var t = parseInt(dados.total_caixa);
+          var c = parseInt(dados.preco_total_completo);
+          var p = parseInt(dados.preco_total_pendente);
+          var porcentagemCompleto = (c / t) * 100;
+          var porcentagemPendente = (p / t) * 100;
+          var p_completo = `<div class="chart" data-percent="${porcentagemCompleto}" data-bar-color="#a7d212">
+                                <span class="percent" data-after="%">${porcentagemCompleto}</span>
+                            </div>`;
+          var p_pendente =  `<div class="chart" data-percent="${porcentagemPendente}" data-bar-color="#edc214">
+                                <span class="percent" data-after="%">${porcentagemPendente}</span>
+                            </div>`;
+            $("#porcentagem_completo").append(p_completo);
+            $("#porcentagem_pendente").append(p_pendente);
+
+            
+        },
+        error: function(xhr, status, error) {
+            toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+function Tema() {
+  
+    $.ajax({
+        
+        type: "POST",
+        url: "consulta.php",
+        data: {
+           acao : "usuario"
+        },
+        success: function(response) {
+          var dados = JSON.parse(response);
+          if(dados.Tema == null){
+            document.body.classList.toggle('dark-mode-variables');
+            darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
+            darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
+          }
+        },
+        error: function(xhr, status, error) {
+            toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+function editarTema(id,tema) {
+    $.ajax({
+        type: "POST",
+        url: "consulta2.php",
+        data: {
+            acao: 'editar_tema',
+            id:id,
+            tema:tema
+        },
+        success: function(response) {
+            debugger;
+            var resultados = JSON.parse(response);
+            if(resultados.codigo==0){
+                window.location.href = 'index.php';
+            }
+           
+          
+        },error: function(xhr, status, error) {
+          toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+'use strict';
+
+var $window = $(window);
+
+function run()
+{
+	var fName = arguments[0],
+		aArgs = Array.prototype.slice.call(arguments, 1);
+	try {
+		fName.apply(window, aArgs);
+	} catch(err) {
+		 
+	}
+};
+ 
+/* chart
+================================================== */
+function _chart ()
+{
+	$('.b-skills').appear(function() {
+		setTimeout(function() {
+			$('.chart').easyPieChart({
+				easing: 'easeOutElastic',
+				delay: 3000,
+				barColor: '#369670',
+				trackColor: '#fff',
+				scaleColor: false,
+				lineWidth: 21,
+				trackWidth: 21,
+				size: 250,
+				lineCap: 'round',
+				onStep: function(from, to, percent) {
+					this.el.children[0].innerHTML = Math.round(percent);
+				}
+			});
+		}, 150);
+	});
+};
+ 
+
+$(document).ready(function() {
+  
+	run(_chart);
+  
+    
+});

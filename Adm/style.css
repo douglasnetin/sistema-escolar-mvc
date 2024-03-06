@@ -382,18 +382,21 @@ main .analyse svg circle{
 }
 
 main .analyse .sales svg circle{
+    /* circulo verde */
     stroke: var(--color-success);
     stroke-dashoffset: -30;
     stroke-dasharray: 200;
 }
 
 main .analyse .visits svg circle{
+    /* circulo vermelho */
     stroke: var(--color-danger);
-    stroke-dashoffset: -30;
+    stroke-dashoffset: -220;
     stroke-dasharray: 200;
 }
 
 main .analyse .searches svg circle{
+    /* circulo azul */
     stroke: var(--color-primary);
     stroke-dashoffset: -30;
     stroke-dasharray: 200;
@@ -484,7 +487,74 @@ main .recent-orders a{
     margin: 1rem auto;
     color: var(--color-primary);
 }
+.b-skills
+{
+	border-top: 1px solid #f9f9f9;
+	padding-top: 46px;
+	text-align: center;
+}
 
+.b-skills:last-child { margin-bottom: -30px; }
+
+.b-skills h2 { margin-bottom: 50px; font-weight: 900; text-transform: uppercase;}
+
+.skill-item
+{
+	position: relative;
+	max-width: 250px;
+	width: 100%;
+	margin-bottom: 30px;
+	color: #555;
+}
+
+.chart-container
+{
+	position: relative;
+	width: 100%;
+	height: 0;
+	padding-top: 100%;
+	margin-bottom: 27px;
+}
+
+.skill-item .chart,
+.skill-item .chart canvas
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.skill-item .chart:before
+{
+	content: "";
+	width: 0;
+	height: 100%;
+}
+
+.skill-item .chart:before,
+.skill-item .percent
+{
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.skill-item .percent
+{
+	position: relative;
+	line-height: 1;
+	font-size: 27px;
+	font-weight: 900;
+	z-index: 2;
+}
+
+.skill-item  .percent:after
+{
+	content: attr(data-after);
+	font-size: 20px;
+}
+ 
 .right-section{
     margin-top: 1.4rem;
 }

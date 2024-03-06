@@ -20,7 +20,7 @@ if ($acao == "plano") {
     $stmt_verificar_nome->execute();
     $stmt_verificar_nome->store_result();
 
-if ($stmt_verificar_nome->num_rows > 0) {
+    if ($stmt_verificar_nome->num_rows > 0) {
         // Se o nome do plano já existe, retorna uma mensagem de erro
         $response['codigo'] = 1;
         $response['mensagem'] = "O nome do plano já existe.";
@@ -122,44 +122,48 @@ if ($stmt_verificar_nome->num_rows > 0) {
 
 
 if ($acao == "devedores") {
-    // Ação para inserir um novo plano
-    $status = $_POST['status'];
-    $preco = $_POST['preco'];
-
     // Prepara a declaração SQL para inserção
-    $sql = `SELECT 
-    (SELECT SUM(p1.preco_plano) 
-     FROM agendamento a1 , plano p1  
-     WHERE a1.status = 'pendente') AS preco_total_pendente,
-     
-    (SELECT SUM(p2.preco_plano) 
-     FROM agendamento a2 
-     , plano p2  
-     WHERE a2.status = 'confirmado') AS preco_total_completo;
-`;
+    $sql = "SELECT 
+                (SELECT SUM(p1.preco_plano) 
+                 FROM agendamento a1 , plano p1  
+                 WHERE a1.status = 'pendente') AS preco_total_pendente,
+                 
+                (SELECT SUM(p2.preco_plano) 
+                 FROM agendamento a2 
+                 , plano p2  
+                 WHERE a2.status = 'confirmado') AS preco_total_completo,
 
+                 (SELECT SUM(p3.preco_plano) 
+                 FROM agendamento a3 , plano p3 WHERE a3.status in ('pendente','confirmado') ) AS total_caixa";
+    
     // Prepara a declaração SQL
     $stmt = $conn->prepare($sql);
 
     // Verifica se a preparação da declaração SQL foi bem-sucedida
     if ($stmt) {
         // Define os parâmetros e executa a declaração
-        $stmt->bind_param($nome, $status,$preco);
         if ($stmt->execute()) {
-            // Se a inserção for bem-sucedida, define o código como 0 e a mensagem de sucesso
+            // Se a execução for bem-sucedida, obtém os resultados
+            $stmt->bind_result($preco_total_pendente, $preco_total_completo, $total_caixa);
+            $stmt->fetch();
+            // Define os dados de resposta
             $response['codigo'] = 0;
-            $response['mensagem'] = "Dados inseridos com sucesso.";
+            $response['mensagem'] = "Dados obtidos com sucesso.";
+            $response['preco_total_pendente'] = $preco_total_pendente;
+            $response['preco_total_completo'] = $preco_total_completo;
+            $response['total_caixa'] = $total_caixa;
         } else {
-            // Se houver um erro na inserção, define o código como 1 e a mensagem de erro
+            // Se houver um erro na execução, define a mensagem de erro
             $response['codigo'] = 1;
-            $response['mensagem'] = "Erro ao inserir dados: " . $stmt->error;
+            $response['mensagem'] = "Erro ao executar a consulta: " . $stmt->error;
         }
     } else {
-        // Se houver um erro na preparação da declaração SQL, define o código como 1 e a mensagem de erro
+        // Se houver um erro na preparação da declaração SQL, define a mensagem de erro
         $response['codigo'] = 1;
         $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
     }
-   
+
+    // Fecha a declaração SQL
     $stmt->close();
 }
 
@@ -213,6 +217,7 @@ if ($acao == "obterAgendamento") {
     // Fecha a declaração SQL
     $stmt->close();
 }
+
 if ($acao == "excluir_agendamento") {
     // Ação para excluir um agendamento
     $id_agendamento = $_POST['id_agendamento'];
@@ -245,6 +250,7 @@ if ($acao == "excluir_agendamento") {
     // Fecha a declaração SQL
     $stmt->close();
 }
+
 if ($acao == "obterPlano") {
     // Prepara a declaração SQL para obter os dados do plano
     $sql = "SELECT * FROM plano";
@@ -331,6 +337,46 @@ if ($acao == "excluirPlano") {
         $response['mensagem'] = "ID do plano não fornecido.";
     }
 }
+
+if ($acao == "usuario") {
+    // Prepara a declaração SQL para inserção
+    $sql = "SELECT * FROM usuario";
+    
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Define os parâmetros e executa a declaração
+        if ($stmt->execute()) {
+            // Se a execução for bem-sucedida, obtém os resultados
+            $stmt->bind_result($id, $nome, $email, $usuario, $senha, $nivel, $tema);
+            $stmt->fetch();
+            // Define os dados de resposta
+            $response['codigo'] = 0;
+            $response['mensagem'] = "Dados obtidos com sucesso.";
+            $response['id'] = $id;
+            $response['nome'] = $nome;
+            $response['email'] = $email;
+            $response['usuario'] = $usuario;
+            $response['nivel'] = $nivel;
+            $response['tema'] = $tema;
+        } else {
+            // Se houver um erro na execução, define a mensagem de erro
+            $response['codigo'] = 1;
+            $response['mensagem'] = "Erro ao executar a consulta: " . $stmt->error;
+        }
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+
+    // Fecha a declaração SQL
+    $stmt->close();
+}
+
+
 
 echo json_encode($response);
 $conn->close();
