@@ -341,7 +341,11 @@ if ($acao == "excluirPlano") {
 if ($acao == "usuario") {
     // Prepara a declaração SQL para inserção
     $sql = "SELECT * FROM usuario";
-    
+        if (!empty($_POST['id'])) {
+            // Se não estiver vazio, você pode adicionar o filtro WHERE na sua consulta SQL
+            $id = $_POST['id'];
+            $sql .= " WHERE id = $id";
+        }
     // Prepara a declaração SQL
     $stmt = $conn->prepare($sql);
 

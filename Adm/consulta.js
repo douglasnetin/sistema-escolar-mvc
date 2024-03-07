@@ -6,8 +6,8 @@ $(function() {
     obterAgendamento();
     obterPlano();
     devedores();
-    Tema();
 });
+
 
 function obterAgendamento() {
     $.ajax({
@@ -22,7 +22,9 @@ function obterAgendamento() {
             for(var i=0; i<resultados.dados.length;i++){
                 html+="<tr>"
                 html+=`<td>${resultados.dados[i].nome}</td>`;
-                html+=`<td>${resultados.dados[i].telefone}</td>`;
+                // Formatando o número de telefone antes de exibi-lo
+                var telefoneFormatado = formatarNumero(resultados.dados[i].telefone);
+                html+=`<td><a href="https://api.whatsapp.com/send?phone=${telefoneFormatado}" target="_blank">${telefoneFormatado}</a></td>`;
                 html+=`<td>${resultados.dados[i].plano}</td>`;
                 html+=`<td>${resultados.dados[i].data_agendamento}</td>`;
                 html+=`<td>${resultados.dados[i].hora_agendamento}</td>`;
@@ -35,13 +37,19 @@ function obterAgendamento() {
                 html+="<td><a href='javascript:deletarAgendamento("+resultados.dados[i].id+")'><span class='material-icons-sharp'>delete</span></a></td>"
                 html+="</tr>";
             }
-           
-          $("#agendamento").append(html);
+
+
+            $("#agendamento").append(html);
            
         },error: function(xhr, status, error) {
           toastr.error("Erro ao criar plano: " + error);
         }
     });
+}
+
+// Função para formatar o número de telefone
+function formatarNumero(num) {
+    return num.replace(/\D/g, '');
 }
 
 function editarStatus(id) {
@@ -221,13 +229,13 @@ function devedores() {
         },
         success: function(response) {
             var dados = JSON.parse(response);
-          $("#total_pendente").append(dados.preco_total_pendente);
-          $("#total_completos").append(dados.preco_total_completo);
-          $("#total_caixa").append(dados.total_caixa);
-
-          var t = parseInt(dados.total_caixa);
-          var c = parseInt(dados.preco_total_completo);
-          var p = parseInt(dados.preco_total_pendente);
+          $("#total_pendente").append((dados.preco_total_pendente == null) ? 0 : dados.preco_total_pendente);
+          $("#total_completos").append(( dados.preco_total_completo == null) ? 0 : dados.preco_total_completo);
+          $("#total_caixa").append((dados.total_caixa == null) ? 0 : dados.total_caixa);
+         
+          var t = parseInt((dados.total_caixa == null) ? 0 : dados.total_caixa); 
+          var c = parseInt(( dados.preco_total_completo == null) ? 0 : dados.preco_total_completo);
+          var p = parseInt((dados.preco_total_pendente == null) ? 0 : dados.preco_total_pendente);
           var porcentagemCompleto = (c / t) * 100;
           var porcentagemPendente = (p / t) * 100;
           var p_completo = `<div class="chart" data-percent="${porcentagemCompleto}" data-bar-color="#a7d212">
@@ -247,28 +255,7 @@ function devedores() {
     });
 }
 
-function Tema() {
-  
-    $.ajax({
-        
-        type: "POST",
-        url: "consulta.php",
-        data: {
-           acao : "usuario"
-        },
-        success: function(response) {
-          var dados = JSON.parse(response);
-          if(dados.Tema == null){
-            document.body.classList.toggle('dark-mode-variables');
-            darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
-            darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
-          }
-        },
-        error: function(xhr, status, error) {
-            toastr.error("Erro ao criar plano: " + error);
-        }
-    });
-}
+
 
 function editarTema(id,tema) {
     $.ajax({
@@ -280,7 +267,6 @@ function editarTema(id,tema) {
             tema:tema
         },
         success: function(response) {
-            debugger;
             var resultados = JSON.parse(response);
             if(resultados.codigo==0){
                 window.location.href = 'index.php';

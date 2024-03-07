@@ -1,12 +1,14 @@
 <?php
 session_start();
-
+//existe essas sessões: id, nome, nivel, email, tema 
 if(isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
 } else {
-    header("Location: index.php");
+   
+    header("Location: ../login.php");
     exit();
 }
+$tema = $_SESSION['tema'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,10 +29,42 @@ if(isset($_SESSION['id'])) {
     <script src="plugins/jquery.appear.min.js"></script>
     <script src="plugins/jquery.easypiechart.min.js"></script> 
     <title>Responsive Dashboard Design #1 | AsmrProg</title>
+    
 </head>
 
 <body>
+<script>
+        $(function() {
+            Tema();
+        });
 
+       
+        function Tema() {
+            debugger;
+            var id = "<?php echo $_SESSION["id"]; ?>";
+             $.ajax({
+                
+                type: "POST",
+                url: "consulta.php",
+                data: {
+                    acao : "usuario",
+                    id:id
+                },
+                success: function(response) {
+                    debugger;
+                    var dados = JSON.parse(response);
+                    if(dados.tema === 1){        
+                    document.body.classList.toggle('dark-mode-variables');
+                    darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
+                    darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    toastr.error("Erro ao criar plano: " + error);
+                }
+            });
+            }
+    </script>
     <div class="container">
         <!-- Sidebar Section -->
         <aside>
@@ -153,15 +187,15 @@ if(isset($_SESSION['id'])) {
                         
                     </div>
                 </div>
-                <div class="searches">
+                <div class="visits">
                     <div class="status">
                     <div class="info">
-                            <h3>Caixa</h3>
+                            <h5>Caixa</h3>
                             <h1 id="total_pendente"></h1>
                         </div>
                         <div class="b-skills">
-                             <div class="skill-item center-block">
-                                 <div class="chart-container" id="porcentagem_pendente">
+                             <div class="skill-item center-block" >
+                                 <div class="chart-container "  id="porcentagem_pendente">
                                     
                                  </div>
                                  <p >PENDENTES</p>
@@ -229,17 +263,16 @@ if(isset($_SESSION['id'])) {
                     </span>
                 </button>
                 <div class="dark-mode">
-                    <span class="material-icons-sharp active">
+                    <span class="material-icons-sharp active " onclick="editarTema(<?php echo $_SESSION['id']; ?> , 0)" >
                         light_mode
                     </span>
-                    <span class="material-icons-sharp">
+                    <span class="material-icons-sharp" onclick="editarTema(<?php echo $_SESSION['id']; ?> , 1)">
                         dark_mode
                     </span>
                 </div>
-
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Reza</b></p>
+                        <p>Hey, <b><?php echo $_SESSION['id']; ?></b></p>
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
@@ -254,7 +287,7 @@ if(isset($_SESSION['id'])) {
                 <div class="logo">
                     <img src="images/logo.png">
                     <h2>AsmrProg</h2>
-                    <p>Fullstack Web Developer</p>
+                    <p>Fullstack Web Developeraaaa</p>
                 </div>
             </div>
 
@@ -331,27 +364,27 @@ if(isset($_SESSION['id'])) {
 
     <div class="row campo">
     <div class="titulo">
-  <h2>Adicionar Plano</h2>
+  <h2 style="color:black">Adicionar Plano</h2>
 </div>
 
 <div class="row campo">
   <div class="col-lg-6">
-    <label for="nomePlano">Nome do Plano</label>
+    <label for="nomePlano" style="color:black">Nome do Plano</label>
     <input class="form-control" id="nomePlano" type="text">
   </div>
   <div class="col-lg-6">
-    <label for="txtLabel">Texto Titulo</label>
+    <label for="txtLabel" style="color:black">Texto Titulo</label>
     <input class="form-control" id="txtLabel" type="text">
   </div>
 </div>
 
 <div class="row campo">
   <div class="col-lg-6">
-    <label for="detalhePlano">Detalhe Plano</label>
+    <label for="detalhePlano" style="color:black">Detalhe Plano</label>
     <textarea class="form-control" id="detalhePlano" rows="4"></textarea>
   </div>
   <div class="col-lg-6">
-    <label for="preco">Preço</label>
+    <label for="preco" style="color:black">Preço</label>
     <input class="form-control" id="preco" type="text">
   </div>
 </div>
