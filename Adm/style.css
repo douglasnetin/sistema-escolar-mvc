@@ -500,6 +500,7 @@ main .recent-orders a{
 
 .skill-item
 {
+    
 	position: relative;
 	max-width: 250px;
 	width: 100%;
@@ -532,10 +533,13 @@ main .recent-orders a{
 	width: 0;
 	height: 100%;
 }
-
+.percent {
+    font-size: 18px; /* Tamanho da fonte desejado */
+}
 .skill-item .chart:before,
 .skill-item .percent
 {
+    
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -544,9 +548,9 @@ main .recent-orders a{
 {
 	position: relative;
 	line-height: 1;
-	font-size: 27px;
+	font-size: 23px;
 	font-weight: 900;
-	z-index: 2;
+	z-index: 1;
 }
 
 .skill-item  .percent:after
