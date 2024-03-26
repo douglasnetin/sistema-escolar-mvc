@@ -37,13 +37,10 @@ $tema = $_SESSION['tema'];
         $(function() {
             Tema();
         });
-
        
         function Tema() {
-            debugger;
             var id = "<?php echo $_SESSION["id"]; ?>";
-             $.ajax({
-                
+             $.ajax({                
                 type: "POST",
                 url: "consulta.php",
                 data: {
@@ -51,19 +48,18 @@ $tema = $_SESSION['tema'];
                     id:id
                 },
                 success: function(response) {
-                    debugger;
                     var dados = JSON.parse(response);
                     if(dados.tema === 1){        
-                    document.body.classList.toggle('dark-mode-variables');
-                    darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
-                    darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
+                        document.body.classList.toggle('dark-mode-variables');
+                        darkMode.querySelector('span:nth-child(1)').classList.toggle('active');
+                        darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
                     }
                 },
                 error: function(xhr, status, error) {
                     toastr.error("Erro ao criar plano: " + error);
                 }
             });
-            }
+        }
     </script>
     <div class="container">
         <!-- Sidebar Section -->
@@ -130,7 +126,7 @@ $tema = $_SESSION['tema'];
                     </span>
                     <h3>Settings</h3>
                 </a>
-                <a href="#">
+                <a href="../cadastrar.php">
                     <span class="material-icons-sharp">
                         add
                     </span>

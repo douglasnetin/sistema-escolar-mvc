@@ -1,13 +1,11 @@
-//carregar tudo quando a pagina abrir
 $(function() {
     $('#preco').on('input', function() {
-        this.value = this.value.replace(/[^0-9]/g, ''); // Remove tudo que não é número
+        this.value = this.value.replace(/[^0-9]/g, '');
     });
     obterAgendamento();
     obterPlano();
     devedores();
 });
-
 
 function obterAgendamento() {
     $.ajax({
@@ -22,9 +20,8 @@ function obterAgendamento() {
             for(var i=0; i<resultados.dados.length;i++){
                 html+="<tr>"
                 html+=`<td>${resultados.dados[i].nome}</td>`;
-                // Formatando o número de telefone antes de exibi-lo
                 var telefoneFormatado = formatarNumero(resultados.dados[i].telefone);
-                html+=`<td><a href="https://api.whatsapp.com/send?phone=${telefoneFormatado}" target="_blank">${telefoneFormatado}</a></td>`;
+                html+=`<td><a href="https://api.whatsapp.com/send?phone=${telefoneFormatado}" target="_blank">${resultados.dados[i].telefone}</a></td>`;
                 html+=`<td>${resultados.dados[i].plano}</td>`;
                 html+=`<td>${resultados.dados[i].data_agendamento}</td>`;
                 html+=`<td>${resultados.dados[i].hora_agendamento}</td>`;
@@ -47,7 +44,6 @@ function obterAgendamento() {
     });
 }
 
-// Função para formatar o número de telefone
 function formatarNumero(num) {
     return num.replace(/\D/g, '');
 }
@@ -71,8 +67,6 @@ function editarStatus(id) {
             }else{
                 toastr.error(resultados.mensagem);
             }
-           
-          
         },error: function(xhr, status, error) {
           toastr.error("Erro ao criar plano: " + error);
         }
@@ -98,8 +92,6 @@ function deletarAgendamento(id){
             }else{
                 toastr.error(resultados.mensagem);
             }
-           
-          
         },error: function(xhr, status, error) {
           toastr.error("Erro ao criar plano: " + error);
         }
@@ -167,7 +159,6 @@ function inserirPlano() {
             acao: 'plano'
         },
         success: function(response) {
-          debugger;
             var dados = JSON.parse(response);
             if(dados.codigo==0){
             toastr.success(dados.mensagem);
@@ -176,10 +167,9 @@ function inserirPlano() {
             $("#detalhePlano").val("");
             $("#preco").val("");
             $("#cancelar").click();
-            // Redireciona para uma nova página após 3 segundos
-          setTimeout(function() {
-           window.location.href = 'index.php';
-}, 3000); // 3000 milissegundos = 3 segundos
+            setTimeout(function() {
+                window.location.href = 'index.php';
+            }, 3000); 
             }else{
               toastr.error(dados.mensagem);
             }
@@ -190,7 +180,6 @@ function inserirPlano() {
         }
     });
 }
-
 
 function deletarPlano(idPlano) {
     if (confirm("Tem certeza que deseja excluir este plano?")) {
@@ -255,8 +244,6 @@ function devedores() {
     });
 }
 
-
-
 function editarTema(id,tema) {
     $.ajax({
         type: "POST",
@@ -292,10 +279,8 @@ function run()
 	} catch(err) {
 		 
 	}
-};
- 
-/* chart
-================================================== */
+}; 
+
 function _chart ()
 {
 	$('.b-skills').appear(function() {
@@ -316,12 +301,8 @@ function _chart ()
 			});
 		}, 150);
 	});
-};
- 
+}; 
 
-$(document).ready(function() {
-  
+$(document).ready(function() {  
 	run(_chart);
-  
-    
 });
