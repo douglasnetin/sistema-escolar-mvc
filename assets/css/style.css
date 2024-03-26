@@ -1,123 +1,177 @@
-body, html{
+body{
+  background-color: #ce98026e;
+}
+#banner {
+    height: auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #banner .carousel-inner {
     height: 100%;
-    background-repeat: no-repeat;
-    background-color: #61b8f1;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-   
-}
+  }
 
-.main{
-    margin-top: 70px;
-}
+  #banner .carousel-item img {
+    object-fit: cover;
+    height: 100%;
+  }
 
-h1.title { 
-   font-size: 50px;
-   font-family: 'Inter', sans-serif;
-   font-weight: 400; 
-}
+  .navbar {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
 
-hr{
-   width: 10%;
-   color: #fff;
-}
+  .navbar.transparent {
+    background-color: transparent !important;
+    color: rgb(0, 0, 0) !important;
+  }
 
-.form-group{
-   margin-bottom: 20px;
-}
+  .navbar.solid {
+    background-color: #3f939454 !important;
+    color: rgb(0, 0, 0) !important;
+  }
 
-label{
-   margin-bottom: 15px;
-}
+  .promotions {
+    position: absolute;
+    top: 75%;
+    left: 46%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px;
+    color: rgb(0, 0, 0);
+    font-size: 24px;
+  }
 
-input,
-input::-webkit-input-placeholder {
-   font-size: 15px;
-   padding-top: 5px;
-}
-
-.main-login2{
-    background-color: #fcf3f3;
-   /* shadows and rounded borders */
-   -moz-border-radius: 2px;
-   -webkit-border-radius: 2px;
-   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-   border-radius: 15px;
-   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.705);
-
-}
-
-.main-center{
-    margin-top: 30px;
-    margin: 0 auto;
-    max-width: 330px;
-   padding: 40px 40px;
-
-}
-
-.login-button{
-   margin-top: 15px;
-}
-
-.login-register{
-    
-        font-size: 11px;
-        text-align: center;
-        margin-top: 10px; /* Adicionando espaçamento entre o botão e o texto */
-    
-}
-.login-register1{
-    
-    font-size: 11px;
-    text-align: left;
-    margin-top: 10px; /* Adicionando espaçamento entre o botão e o texto */
-
-}
-.btn {
-    background-color: #9feeb9;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border: none !important;
-    transition: all linear 160ms;
+  .carousel-control-pause {
     cursor: pointer;
-    margin: 0 !important;
-    width: 100%; /* Definindo a largura do botão como 100% */
+    background-color: transparent;
+    border: none;
+  }
+
+  .carousel-control-pause:focus {
+    outline: none;
+  }
+
+  .carousel-control-pause i {
+    font-size: 24px;
+    color: rgb(0, 0, 0);
+  }
+
+  #footer {
+    background-color:#62cacb;
+    padding: 20px 0;
+    margin-top: 20px;
+  }
+
+  #footer .footer-section {
+    text-align: center;
+  }
+
+  #footer .footer-section h3 {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  #footer .footer-section p {
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  #footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #footer .footer-section ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  #footer .footer-section ul li:last-child {
+    margin-right: 0;
+  }
+
+  #footer .footer-section ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+  }
+
+  .beach-section {
+    background-color: #62cacb;
+    padding: 50px 0; /* Espaçamento interno superior e inferior */
+  }
+  
+  .beach-section h2 {
+    color: #fff; /* Cor do texto do título */
+  }
+  
+  .beach-section .card {
+    background-color: #fff; /* Cor de fundo dos cards */
+    border-radius: 10px;
+    overflow: hidden; /* Para garantir que a borda arredondada funcione mesmo que haja imagem dentro */
+    margin-bottom: 20px; /* Espaçamento entre os cards */
+  }
+  
+  .beach-section .card img {
+    border-radius: 10px 10px 0 0; /* Bordas arredondadas somente no topo da imagem */
+  }
+  
+  .beach-section .card-title,
+  .beach-section .card-text {
+    color: #333; /* Cor do texto dos cards */
+  }
+  
+  .beach-section .btn-primary {
+    background-color: #ffcc29; /* Cor do botão */
+    border-color: #ffcc29; /* Cor da borda do botão */
+  }
+  
+  .beach-section .btn-primary:hover {
+    background-color: #ffdb75; /* Cor de fundo do botão ao passar o mouse */
+    border-color: #ffdb75; /* Cor da borda do botão ao passar o mouse */
+  }
+  
+  #quem-somos {
+    background-color: #62cacb;
+    border-radius: 20px;
+    padding: 50px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
 }
-.btn2 {
-    background-color: #9feeb9;
+
+#galeria {
+  background-color: #62cacb;
+  border-radius: 20px;
+  padding: 50px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
+}
+
+#depoimentos {
+  background-color: #62cacb;
+  border-radius: 20px;
+  padding: 50px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
+}
+
+#promocoes {
+  background-color: #62c9cb;
+  border-radius: 20px;
+  padding: 50px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
+}
+
+#footer {
+  background-color: #62cacb;
+  padding: 50px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
+  border-radius: 20px;
+}
+
+.section-title {
     color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    border: none !important;
-    transition: all linear 160ms;
-    cursor: pointer;
-    margin: 0 !important;
-    height: 35px;
-    width: 225px; /* Definindo a largura do botão como 100% */
 }
-.btn2:hover {
-    transform: scale(1.05);
-    background-color: #26fd79;
-}
-.btn:hover {
-    transform: scale(1.05);
-    background-color: #26fd79;
-}
-h3{
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
-}
-.login-register-wrapper {
-    margin-top: 15px; /* Adicionando espaçamento entre o botão e o texto abaixo */
-}
-.main-login2{
-    background-color: #defaff;
-   -moz-border-radius: 45px;
-   -webkit-border-radius: 15px;
-   -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    border-radius: 15px;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.705);
+
+.section-description {
+    color: #fff;
 }
