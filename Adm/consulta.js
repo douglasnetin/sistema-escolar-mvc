@@ -2,6 +2,10 @@ $(function() {
     $('#preco').on('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
+<<<<<<< HEAD
+=======
+    obterPromocao()
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     obterAgendamento();
     obterPlano();
     devedores();
@@ -126,6 +130,88 @@ function obterPlano() {
     });
 }
 
+<<<<<<< HEAD
+=======
+function obterPromocao() {
+    $.ajax({
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            acao: 'obterPromocao'
+        },
+        success: function(response) {
+            var resultados = JSON.parse(response);
+            var html= "";
+            for(var i=0; i<resultados.dados.length;i++){
+                html+="<tr>"
+                html+=`<td>${resultados.dados[i].titulo}</td>`;
+                html+=`<td>${resultados.dados[i].descricao}</td>`;
+                html+=`<td>${resultados.dados[i].label}</td>`;
+                html += "<td><a href='javascript:deletarPromocao(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
+                html+="</tr>";
+            }
+           
+          $("#promocoesTable").append(html);
+           
+        },error: function(xhr, status, error) {
+          toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+function obterusuario() {
+    $.ajax({
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            acao: 'obterUsuario'
+        },
+        success: function(response) {
+            var resultados = JSON.parse(response);
+            var html= "";
+            for(var i=0; i<resultados.dados.length;i++){
+                html+="<tr>"
+                html+=`<td>${resultados.dados[i].titulo}</td>`;
+                html+=`<td>${resultados.dados[i].descricao}</td>`;
+                html+=`<td>${resultados.dados[i].label}</td>`;
+                html += "<td><a href='javascript:deletarPromocao(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
+                html+="</tr>";
+            }
+           
+          $("#promocoesTable").append(html);
+           
+        },error: function(xhr, status, error) {
+          toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+function deletarPromocao(id){
+    if(!confirm("Deseja remover a promoção? ")){return false;}
+    $.ajax({
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            acao: 'excluir_promocao',
+            id_promocao:id
+        },
+        success: function(response) {
+            var resultados = JSON.parse(response);
+            if(resultados.codigo==0){
+                toastr.success(resultados.mensagem);
+                setTimeout(function() {
+                    window.location.href = 'index.php';
+                }, 500);
+            }else{
+                toastr.error(resultados.mensagem);
+            }
+        },error: function(xhr, status, error) {
+          toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 function inserirPlano() {
     var nomePlano = $("#nomePlano").val();
     var txtLabel = $("#txtLabel").val();
@@ -181,6 +267,63 @@ function inserirPlano() {
     });
 }
 
+<<<<<<< HEAD
+=======
+function inserirPromocao() {
+    var nomePromocao = $("#nomePromocao").val();
+    var tituloPromocao = $("#tituloPromocao").val();
+    var detalhePromocao = $("#detalhePromocao").val();
+    var precoPromocao = $("#precoPromocao").val();
+
+    if(nomePromocao == "" || nomePromocao == null){
+        toastr.error("Nome não pode ser vazio!");
+        return false;
+    }
+
+    if(tituloPromocao == "" || tituloPromocao == null){
+        toastr.error("Titulo não pode ser vazio!");
+        return false;
+    }
+
+    if(detalhePromocao == "" || detalhePromocao == null){
+        toastr.error("Descrição não pode ser vazio!");
+        return false;
+    }
+
+    $.ajax({    
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            nomePromocao: nomePromocao,
+            tituloPromocao: tituloPromocao,
+            detalhePromocao: detalhePromocao,
+            acao: 'adicionarPromocao'
+        },
+        success: function(response) {
+            debugger;
+            var dados = JSON.parse(response);
+            if(dados.codigo==0){
+            toastr.success(dados.mensagem);
+            $("#nomePlano").val("");
+            $("#txtLabel").val("");
+            $("#detalhePlano").val("");
+            $("#preco").val("");
+            $("#cancelar").click();
+            setTimeout(function() {
+                window.location.href = 'index.php';
+            }, 3000); 
+            }else{
+              toastr.error(dados.mensagem);
+            }
+           
+        },
+        error: function(xhr, status, error) {
+            toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 function deletarPlano(idPlano) {
     if (confirm("Tem certeza que deseja excluir este plano?")) {
         $.ajax({
@@ -217,6 +360,7 @@ function devedores() {
             acao: 'devedores'
         },
         success: function(response) {
+<<<<<<< HEAD
             var dados = JSON.parse(response);
           $("#total_pendente").append((dados.preco_total_pendente == null) ? 0 : dados.preco_total_pendente);
           $("#total_completos").append(( dados.preco_total_completo == null) ? 0 : dados.preco_total_completo);
@@ -232,6 +376,24 @@ function devedores() {
                             </div>`;
           var p_pendente =  `<div class="chart" data-percent="${porcentagemPendente}" data-bar-color="#edc214">
                                 <span class="percent" data-after="%">${porcentagemPendente}</span>
+=======
+          var dados = JSON.parse(response);
+          debugger;
+          $("#total_pendente").append(dados.preco_total_pendente ?? 0);
+          $("#total_completos").append(dados.preco_total_completo ?? 0);
+          $("#total_caixa").append(dados.total_caixa ?? 0);
+
+          var t = parseInt(dados.total_caixa ?? 0); 
+          var c = parseInt(dados.preco_total_completo ?? 0);
+          var p = parseInt(dados.preco_total_pendente ?? 0);
+          var porcentagemCompleto = (c == 0) ? 0 : (c / t) * 100;
+          var porcentagemPendente = (p == 0) ? 0 : (p / t) * 100;
+          var p_completo = `<div class="chart" data-percent="${porcentagemCompleto}" data-bar-color="#a7d212">
+                                <span class="percent" data-after="%">${porcentagemCompleto}</span>
+                            </div>`;
+          var p_pendente =  `<div class="chart" data-percent="${porcentagemPendente *2}" data-bar-color="#edc214">
+                                <span class="percent" data-after="%">${porcentagemPendente *2}</span>
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                             </div>`;
             $("#porcentagem_completo").append(p_completo);
             $("#porcentagem_pendente").append(p_pendente);

@@ -113,6 +113,7 @@ if ($acao == "plano") {
         }
 
     $stmt->close();
+<<<<<<< HEAD
 } else {
     // Se a ação não for reconhecida, retorna uma mensagem de erro
     $response['codigo'] = 1;
@@ -135,6 +136,29 @@ if ($acao == "devedores") {
 
                  (SELECT SUM(p3.preco_plano) 
                  FROM agendamento a3 , plano p3 WHERE a3.status in ('pendente','confirmado') ) AS total_caixa";
+=======
+}
+
+
+if ($acao == "devedores") {
+    // Prepara a declaração SQL para inserção
+    $sql = "SELECT 
+                (SELECT TRUNCATE(SUM(p1.preco_plano) / 2, 2) 
+                FROM agendamento a1 
+                INNER JOIN plano p1 ON a1.plano = p1.nome_plano
+                WHERE a1.status = 'pendente') AS preco_total_pendente,
+                 
+                (SELECT SUM(p1.preco_plano) 
+                FROM agendamento a1 
+                INNER JOIN plano p1 ON a1.plano = p1.nome_plano
+                WHERE a1.status = 'confirmado') AS preco_total_completo,
+
+                (SELECT SUM(p3.preco_plano) 
+                FROM agendamento a3 
+                INNER JOIN plano p3 on a3.plano = p3.nome_plano  
+                WHERE a3.status in 
+                ('pendente','confirmado') ) AS total_caixa";
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     
     // Prepara a declaração SQL
     $stmt = $conn->prepare($sql);
@@ -380,6 +404,173 @@ if ($acao == "usuario") {
     $stmt->close();
 }
 
+<<<<<<< HEAD
+=======
+if ($acao == "adicionarPromocao") {
+    // Ação para inserir um novo plano
+    $nomePromocao = $_POST['nomePromocao'];
+    $tituloPromocao = $_POST['tituloPromocao'];
+    $detalhePromocao = $_POST['detalhePromocao'];
+	 
+  // Prepara a declaração SQL para inserção
+    $sql = "INSERT INTO promocao(titulo, descricao, label) VALUES (?, ?, ?)";
+
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Define os parâmetros e executa a declaração
+        $stmt->bind_param("sss", $nomePromocao, $tituloPromocao, $detalhePromocao);
+        if ($stmt->execute()) {
+            // Se a inserção for bem-sucedida, define o código como 0 e a mensagem de sucesso
+            $response['codigo'] = 0;
+            $response['mensagem'] = "Dados inseridos com sucesso.";
+        } else {
+            // Se houver um erro na inserção, define o código como 1 e a mensagem de erro
+            $response['codigo'] = 1;
+            $response['mensagem'] = "Erro ao inserir dados: " . $stmt->error;
+        }
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+    $stmt->close();  
+}
+
+if ($acao == "obterPromocao") {
+    // Prepara a declaração SQL para obter os dados do plano
+    $sql = "SELECT idPromocao, titulo, descricao, label FROM promocao";
+
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Executa a declaração SQL
+        $stmt->execute();
+
+        // Vincula as colunas do resultado da consulta a variáveis PHP
+        $stmt->bind_result($idPromocao,$titulo, $descricao, $label);
+
+        // Inicializa um array para armazenar os resultados
+        $resultados = array();
+
+        // Itera sobre os resultados da consulta
+        while ($stmt->fetch()) {
+            // Armazena os resultados em um array associativo
+            $resultado = array(
+                'id' => $idPromocao,
+                'titulo' => $titulo,
+                'descricao' => $descricao,
+                'label' => $label
+            );
+
+            // Adiciona o resultado ao array de resultados
+            $resultados[] = $resultado;
+        }
+
+        // Define a resposta como os resultados obtidos da consulta
+        $response['codigo'] = 0;
+        $response['mensagem'] = "Dados obtidos com sucesso.";
+        $response['dados'] = $resultados;
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define a resposta como erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+
+    // Fecha a declaração SQL
+    $stmt->close();
+}
+
+if ($acao == "obterUsuario") {
+    // Prepara a declaração SQL para obter os dados do plano
+    $sql = "SELECT * FROM usuarios";
+
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Executa a declaração SQL
+        $stmt->execute();
+
+        // Vincula as colunas do resultado da consulta a variáveis PHP
+        $stmt->bind_result($id,$nome, $email, $usuario,$senha,$nivel,);
+
+        // Inicializa um array para armazenar os resultados
+        $resultados = array();
+
+        // Itera sobre os resultados da consulta
+        while ($stmt->fetch()) {
+            // Armazena os resultados em um array associativo
+            $resultado = array(
+                'id' => $idPromocao,
+                'titulo' => $titulo,
+                'descricao' => $descricao,
+                'label' => $label
+            );
+
+            // Adiciona o resultado ao array de resultados
+            $resultados[] = $resultado;
+        }
+
+        // Define a resposta como os resultados obtidos da consulta
+        $response['codigo'] = 0;
+        $response['mensagem'] = "Dados obtidos com sucesso.";
+        $response['dados'] = $resultados;
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define a resposta como erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+
+    // Fecha a declaração SQL
+    $stmt->close();
+}
+
+if ($acao == "excluir_promocao") {
+    // Verifica se o ID do plano foi enviado
+    if (isset($_POST['id_promocao'])) {
+        // Obtém o ID do plano a ser excluído
+        $id_promocao = $_POST['id_promocao'];
+
+        // Prepara a declaração SQL para excluir o plano
+        $sql = "DELETE FROM promocao WHERE idPromocao = ?";
+
+        // Prepara a declaração SQL
+        $stmt = $conn->prepare($sql);
+
+        // Verifica se a preparação da declaração SQL foi bem-sucedida
+        if ($stmt) {
+            // Vincula os parâmetros e executa a declaração
+            $stmt->bind_param("i", $id_promocao);
+            if ($stmt->execute()) {
+                // Se a exclusão for bem-sucedida, define o código como 0 e a mensagem de sucesso
+                $response['codigo'] = 0;
+                $response['mensagem'] = "Plano excluído com sucesso.";
+            } else {
+                // Se houver um erro na exclusão, define o código como 1 e a mensagem de erro
+                $response['codigo'] = 1;
+                $response['mensagem'] = "Erro ao excluir plano: " . $stmt->error;
+            }
+        } else {
+            // Se houver um erro na preparação da declaração SQL, define o código como 1 e a mensagem de erro
+            $response['codigo'] = 1;
+            $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+        }
+
+        // Fecha a declaração SQL
+        $stmt->close();
+    } else {
+        // Se o ID do plano não foi enviado, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "ID do plano não fornecido.";
+    }
+}
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 
 
 echo json_encode($response);

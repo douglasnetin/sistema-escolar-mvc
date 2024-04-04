@@ -76,7 +76,111 @@ if ($acao === 'selectPlanos')  {
         $response['mensagem'] = "Nenhum dado encontrado.";
     }
 }
+<<<<<<< HEAD
 // Retorna a resposta como JSON
+=======
+if ($acao === 'Hora')  {
+  
+    
+    // Prepara a declaração SQL para inserção
+    $sql = "SELECT cod_horario , hr_horario FROM horario";
+    
+    // Executa a consulta SQL
+    $result = $conn->query($sql);
+    
+    // Inicializa um array para armazenar os resultados
+    $response = array();
+
+    // Verifica se a consulta retornou resultados
+    if ($result->num_rows > 0) {
+        
+        $contador=0;
+        while($row = $result->fetch_assoc()) {
+            $contador++;
+            $response[] = $row;
+        }
+        // Define o código como 0 e a mensagem de sucesso
+        $response['codigo'] = 0;
+        $response['length'] = $contador;
+        $response['mensagem'] = "Dados selecionados com sucesso.";
+    } else {
+        // Se não houver resultados, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Nenhum dado encontrado.";
+    }
+}
+
+if ($acao === 'validarhorario')  {
+    $horario = $_POST['cod_horario'];
+    $data_Agendamento = $_POST['data_Agendamento'];
+    // Prepara a declaração SQL para inserção
+    $sql = "SELECT COUNT(hora_agendamento) AS numAgendamentos
+            FROM agendamento a
+            WHERE a.hora_agendamento = 
+            (SELECT hr_horario 
+            FROM horario 
+            WHERE cod_horario=".$horario.")
+            AND a.data_agendamento = '".$data_Agendamento."'";
+
+    // Executa a consulta SQL
+    $result = $conn->query($sql);
+
+    // Inicializa um array para armazenar os resultados
+    $response = array();
+
+    // Verifica se a consulta retornou resultados
+    if ($result->num_rows > 0) {
+
+        $contador = 0;
+        while ($row = $result->fetch_assoc()) {
+            $contador++;
+            $response[] = $row;
+        }
+        // Define o código como 0 e a mensagem de sucesso
+        $response['codigo'] = 0;
+        $response['length'] = $contador;
+        $response['mensagem'] = "Dados selecionados com sucesso.";
+    } else {
+        // Se não houver resultados, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Nenhum dado encontrado.";
+    }
+}
+
+if ($acao === 'promocoes')  {
+    // Prepara a declaração SQL para inserção
+    $sql = "SELECT b.descricao AS desc_plano
+                  ,a.label
+                  ,b.preco_plano
+            FROM promocao a 
+            INNER JOIN plano b on a.titulo = b.nome_plano";
+
+    // Executa a consulta SQL
+    $result = $conn->query($sql);
+
+    // Inicializa um array para armazenar os resultados
+    $response = array();
+
+    // Verifica se a consulta retornou resultados
+    if ($result->num_rows > 0) {
+
+        $contador = 0;
+        while ($row = $result->fetch_assoc()) {
+            $contador++;
+            $response[] = $row;
+        }
+        // Define o código como 0 e a mensagem de sucesso
+        $response['codigo'] = 0;
+        $response['length'] = $contador;
+        $response['mensagem'] = "Dados selecionados com sucesso.";
+    } else {
+        // Se não houver resultados, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Nenhum dado encontrado.";
+    }
+}
+
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 echo json_encode($response);
 
 // Fecha a conexão com o banco de dados

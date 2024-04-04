@@ -28,7 +28,11 @@ $tema = $_SESSION['tema'];
     <script src="plugins/jquery-2.2.4.min.js"></script>
     <script src="plugins/jquery.appear.min.js"></script>
     <script src="plugins/jquery.easypiechart.min.js"></script> 
+<<<<<<< HEAD
     <title>Responsive Dashboard Design #1 | AsmrProg</title>
+=======
+    <title>Dashboard Admin</title>
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     
 </head>
 
@@ -83,12 +87,17 @@ $tema = $_SESSION['tema'];
                     </span>
                     <h3>Dashboard</h3>
                 </a>
+<<<<<<< HEAD
                 <a href="#">
+=======
+                <a style="text-align: right;"  href="#ex3" rel="modal:open" >
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                     <span class="material-icons-sharp">
                         person_outline
                     </span>
                     <h3>Users</h3>
                 </a>
+<<<<<<< HEAD
                 <a href="#">
                     <span class="material-icons-sharp">
                         receipt_long
@@ -126,6 +135,8 @@ $tema = $_SESSION['tema'];
                     </span>
                     <h3>Settings</h3>
                 </a>
+=======
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                 <a href="../cadastrar.php">
                     <span class="material-icons-sharp">
                         add
@@ -147,6 +158,7 @@ $tema = $_SESSION['tema'];
             <h1>Analytics</h1>
             <!-- Analyses -->
             <div class="analyse">
+<<<<<<< HEAD
                 <div class="sales">
                     <div class="status">
                         <div class="info">
@@ -167,6 +179,9 @@ $tema = $_SESSION['tema'];
                     </div>
                 </div>
                 <div class="visits">
+=======
+            <div class="visits">
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                     <div class="status">
                     <div class="info">
                             <h3>Caixa</h3>
@@ -174,8 +189,12 @@ $tema = $_SESSION['tema'];
                         </div>
                         <div class="b-skills">
                              <div class="skill-item center-block">
+<<<<<<< HEAD
                                  <div class="chart-container" id="porcentagem_completo">
                                      
+=======
+                                 <div class="chart-container" id="porcentagem_completo">                                     
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                                  </div>
                                  <p>COMPLETOS</p>
                              </div>
@@ -200,6 +219,20 @@ $tema = $_SESSION['tema'];
                     
                     </div>
                 </div>
+<<<<<<< HEAD
+=======
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            
+                            <h1 id="total_caixa"></h1>
+                            <p>TOTAL CAIXA</p>
+                        </div>
+                        <br>
+                                 
+                    </div>
+                </div>
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
             </div>
             <!-- End of Analyses -->
             
@@ -220,7 +253,11 @@ $tema = $_SESSION['tema'];
                   <tbody id="agendamento">
                   </tbody>
                   </table>
+<<<<<<< HEAD
                 <a href="#">Show All</a>
+=======
+                
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
             </div>
             <!-- End of Recent Orders -->
 
@@ -244,7 +281,34 @@ $tema = $_SESSION['tema'];
 
                   </tbody>
                   </table>
+<<<<<<< HEAD
                 <a href="#">Show All</a>
+=======
+                
+            </div>
+            <!-- End of Recent Orders -->
+
+            <!-- Recent Orders Table -->
+            <div class="recent-orders">
+                <h2>Promoções</h2>
+                <table>
+              <thead>
+                  <tr>
+                      <th colspan="5" ><a style="text-align: right;"  href="#ex2" rel="modal:open" ><span class='material-icons-sharp'>add</span></a></th>
+                  </tr>
+                  <tr>
+                      <th style="text-align: center;">Nome Promoção</th>
+                      <th style="text-align: center;">Label</th>                 
+                      <th style="text-align: center;">Descrição</th>
+                      <th style="text-align: center;" >Ações</th>
+                  </tr>
+              </thead>
+                  <tbody id="promocoesTable">
+
+                  </tbody>
+                  </table>
+                
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
             </div>
             <!-- End of Recent Orders -->
         </main>
@@ -393,6 +457,76 @@ $tema = $_SESSION['tema'];
                     
     <!--FINAL MODAL BODY -->
 
+<<<<<<< HEAD
+=======
+    <!-- MODAL PROMOÇÕES-->
+<div id="ex2" class="modal">
+    <!-- MODAL BODY -->
+
+    <div class="row campo">
+    <div class="titulo">
+  <h2 style="color:black">Adicionar Promoções</h2>
+</div>
+
+<div class="row campo">
+  <div class="col-lg-6">
+    <label for="nomePlano" style="color:black">Nome</label>
+    <input class="form-control" id="nomePromocao" type="text">
+  </div>
+  <div class="col-lg-6">
+    <label for="txtLabel" style="color:black">Titulo</label>
+    <input class="form-control" id="tituloPromocao" type="text">
+  </div>
+</div>
+
+<div class="row campo">
+  <div class="col-lg-6">
+    <label for="detalhePlano" style="color:black">Desrição</label>
+    <textarea class="form-control" id="detalhePromocao" rows="4"></textarea>
+  </div>
+</div>
+
+<div class="botoes">
+  <a class="btn btn-secondary"id="cancelar" rel="modal:close">Cancelar</a>
+  <button class="btn btn-primary" id="salvar" onclick="inserirPromocao()">Salvar</button>
+</div>
+    
+                    
+    <!--FINAL MODAL BODY -->
+
+</div>
+
+
+    <!-- MODAL PROMOÇÕES-->
+    <div id="ex3" class="modal">
+    <!-- MODAL BODY -->
+
+    <div class="modal-promocao">
+        <h2>Promoções</h2>
+        <table>
+        <thead>
+            <tr>
+                <th style="text-align: center;">Nome</th>
+                <th style="text-align: center;">Senha</th>
+                <th style="text-align: center;" >Ações</th>
+            </tr>
+        </thead>
+            <tbody id="usuarioModal">
+
+            </tbody>
+            </table>
+        
+    </div>
+
+    <div class="botoes">
+    <a class="btn btn-secondary"id="cancelar" rel="modal:close">Cancelar</a>
+    <button class="btn btn-primary" id="salvar" onclick="">Salvar</button>
+    </div>
+    
+                    
+    <!--FINAL MODAL BODY -->
+
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 </div>
 
 

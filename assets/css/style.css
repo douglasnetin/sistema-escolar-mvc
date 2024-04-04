@@ -1,5 +1,9 @@
 body{
+<<<<<<< HEAD
   background-color: #ce98026e;
+=======
+  background-color: 	#f7b139;
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 }
 #banner {
     height: auto;
@@ -57,7 +61,11 @@ body{
   }
 
   #footer {
+<<<<<<< HEAD
     background-color:#62cacb;
+=======
+    background-color:#333;
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     padding: 20px 0;
     margin-top: 20px;
   }
@@ -99,7 +107,11 @@ body{
   }
 
   .beach-section {
+<<<<<<< HEAD
     background-color: #62cacb;
+=======
+    background-color: #333;
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     padding: 50px 0; /* Espaçamento interno superior e inferior */
   }
   
@@ -124,7 +136,11 @@ body{
   }
   
   .beach-section .btn-primary {
+<<<<<<< HEAD
     background-color: #ffcc29; /* Cor do botão */
+=======
+    background-color: #f3c52f; /* Cor do botão */
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     border-color: #ffcc29; /* Cor da borda do botão */
   }
   
@@ -134,38 +150,61 @@ body{
   }
   
   #quem-somos {
+<<<<<<< HEAD
     background-color: #62cacb;
+=======
+    
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     border-radius: 20px;
     padding: 50px 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
 }
 
 #galeria {
+<<<<<<< HEAD
   background-color: #62cacb;
+=======
+  
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
   border-radius: 20px;
   padding: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
 }
 
 #depoimentos {
+<<<<<<< HEAD
   background-color: #62cacb;
+=======
+ 
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
   border-radius: 20px;
   padding: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
 }
 
 #promocoes {
+<<<<<<< HEAD
   background-color: #62c9cb;
+=======
+  
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
   border-radius: 20px;
   padding: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
 }
 
 #footer {
+<<<<<<< HEAD
   background-color: #62cacb;
   padding: 50px 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
   border-radius: 20px;
+=======
+  
+  padding: 50px 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona a sombra */
+  border-radius: 20px 20px 0 0;
+>>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 }
 
 .section-title {
