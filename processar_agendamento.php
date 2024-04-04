@@ -76,9 +76,6 @@ if ($acao === 'selectPlanos')  {
         $response['mensagem'] = "Nenhum dado encontrado.";
     }
 }
-<<<<<<< HEAD
-// Retorna a resposta como JSON
-=======
 if ($acao === 'Hora')  {
   
     
@@ -180,7 +177,6 @@ if ($acao === 'promocoes')  {
     }
 }
 
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 echo json_encode($response);
 
 // Fecha a conexão com o banco de dados
