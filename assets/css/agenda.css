@@ -46,7 +46,7 @@ fieldset {
 }
 
 body{
-    background-image: url("https://images.wallpaperscraft.com/image/single/orange_white_solid_65839_1920x1080.jpg");
+    background: linear-gradient(45deg, rgb(212, 175, 55) 0%, rgb(212, 175, 55) 25%, #474747 50%, #000000 75%);
     font-family: sans-serif;
     font-size: 1em;
     color: #59429d;

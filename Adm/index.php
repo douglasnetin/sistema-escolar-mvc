@@ -245,7 +245,7 @@ $tema = $_SESSION['tema'];
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b><?php echo $_SESSION['id']; ?></b></p>
+                        <p>Olá, <b><?php echo $_SESSION['nome']; ?></b></p>
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
@@ -408,17 +408,18 @@ $tema = $_SESSION['tema'];
 </div>
 
 
-    <!-- MODAL PROMOÇÕES-->
+    <!-- MODAL USUARIOS-->
     <div id="ex3" class="modal">
     <!-- MODAL BODY -->
 
-    <div class="modal-promocao">
-        <h2>Promoções</h2>
-        <table>
+    <div class="modal-promocao" >
+        <h2 style="text-align: center;">Usuários</h2>
+        <table class="table" style="width:100%">
         <thead>
             <tr>
+                <th style="text-align: center;">Usuario</th>
                 <th style="text-align: center;">Nome</th>
-                <th style="text-align: center;">Senha</th>
+                <th style="text-align: center;">E-mail</th>
                 <th style="text-align: center;" >Ações</th>
             </tr>
         </thead>

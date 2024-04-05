@@ -459,8 +459,8 @@ if ($acao == "obterPromocao") {
 }
 
 if ($acao == "obterUsuario") {
-    // Prepara a declaração SQL para obter os dados do plano
-    $sql = "SELECT * FROM usuarios";
+    // Prepara a declaração SQL para obter os dados dos usuários
+    $sql = "SELECT * FROM usuario";
 
     // Prepara a declaração SQL
     $stmt = $conn->prepare($sql);
@@ -470,25 +470,8 @@ if ($acao == "obterUsuario") {
         // Executa a declaração SQL
         $stmt->execute();
 
-        // Vincula as colunas do resultado da consulta a variáveis PHP
-        $stmt->bind_result($id,$nome, $email, $usuario,$senha,$nivel,);
-
-        // Inicializa um array para armazenar os resultados
-        $resultados = array();
-
-        // Itera sobre os resultados da consulta
-        while ($stmt->fetch()) {
-            // Armazena os resultados em um array associativo
-            $resultado = array(
-                'id' => $idPromocao,
-                'titulo' => $titulo,
-                'descricao' => $descricao,
-                'label' => $label
-            );
-
-            // Adiciona o resultado ao array de resultados
-            $resultados[] = $resultado;
-        }
+        // Obtém os resultados da consulta
+        $resultados = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
         // Define a resposta como os resultados obtidos da consulta
         $response['codigo'] = 0;
@@ -503,6 +486,8 @@ if ($acao == "obterUsuario") {
     // Fecha a declaração SQL
     $stmt->close();
 }
+
+
 
 if ($acao == "excluir_promocao") {
     // Verifica se o ID do plano foi enviado
