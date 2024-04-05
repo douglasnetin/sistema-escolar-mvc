@@ -346,13 +346,9 @@ main .analyse > div{
     cursor: pointer;
     transition: all 0.3s ease;
 }
-<<<<<<< HEAD
-
-=======
 main .analyse .sales{
     padding: 70px;
 }
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 main .analyse > div:hover{
     box-shadow: none;
 }
@@ -876,10 +872,7 @@ main .recent-orders a{
     }
 
     .right-section .profile .info{
-<<<<<<< HEAD
-=======
         padding:  10px;
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
         display: none;
     }
 
@@ -897,10 +890,7 @@ main .recent-orders a{
     }
 
 }
-<<<<<<< HEAD
-=======
 
 .modal-promocao{
     color: #333;
 }
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
