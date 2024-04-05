@@ -6,6 +6,7 @@ $(function() {
     obterAgendamento();
     obterPlano();
     devedores();
+    obterusuario();
 });
 
 function obterAgendamento() {
@@ -162,18 +163,19 @@ function obterusuario() {
             acao: 'obterUsuario'
         },
         success: function(response) {
+            debugger;
             var resultados = JSON.parse(response);
             var html= "";
             for(var i=0; i<resultados.dados.length;i++){
                 html+="<tr>"
-                html+=`<td>${resultados.dados[i].titulo}</td>`;
-                html+=`<td>${resultados.dados[i].descricao}</td>`;
-                html+=`<td>${resultados.dados[i].label}</td>`;
-                html += "<td><a href='javascript:deletarPromocao(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
+                html+=`<td style="text-align: center;">${resultados.dados[i].usuario}</td>`;
+                html+=`<td style="text-align: center;">${resultados.dados[i].nome}</td>`;
+                html+=`<td style="text-align: center;">${resultados.dados[i].email}</td>`;
+                html += "<td style='text-align: center;'><a href='javascript:deletarUsuario(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
                 html+="</tr>";
             }
            
-          $("#promocoesTable").append(html);
+          $("#usuarioModal").empty().append(html);
            
         },error: function(xhr, status, error) {
           toastr.error("Erro ao criar plano: " + error);
@@ -292,7 +294,6 @@ function inserirPromocao() {
             acao: 'adicionarPromocao'
         },
         success: function(response) {
-            debugger;
             var dados = JSON.parse(response);
             if(dados.codigo==0){
             toastr.success(dados.mensagem);
@@ -352,7 +353,6 @@ function devedores() {
         },
         success: function(response) {
           var dados = JSON.parse(response);
-          debugger;
           $("#total_pendente").append(dados.preco_total_pendente ?? 0);
           $("#total_completos").append(dados.preco_total_completo ?? 0);
           $("#total_caixa").append(dados.total_caixa ?? 0);
