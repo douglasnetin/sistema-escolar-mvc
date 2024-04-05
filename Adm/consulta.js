@@ -2,10 +2,7 @@ $(function() {
     $('#preco').on('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
-<<<<<<< HEAD
-=======
     obterPromocao()
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     obterAgendamento();
     obterPlano();
     devedores();
@@ -130,8 +127,6 @@ function obterPlano() {
     });
 }
 
-<<<<<<< HEAD
-=======
 function obterPromocao() {
     $.ajax({
         type: "POST",
@@ -211,7 +206,6 @@ function deletarPromocao(id){
     });
 }
 
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 function inserirPlano() {
     var nomePlano = $("#nomePlano").val();
     var txtLabel = $("#txtLabel").val();
@@ -267,8 +261,6 @@ function inserirPlano() {
     });
 }
 
-<<<<<<< HEAD
-=======
 function inserirPromocao() {
     var nomePromocao = $("#nomePromocao").val();
     var tituloPromocao = $("#tituloPromocao").val();
@@ -323,7 +315,6 @@ function inserirPromocao() {
     });
 }
 
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 function deletarPlano(idPlano) {
     if (confirm("Tem certeza que deseja excluir este plano?")) {
         $.ajax({
@@ -360,23 +351,6 @@ function devedores() {
             acao: 'devedores'
         },
         success: function(response) {
-<<<<<<< HEAD
-            var dados = JSON.parse(response);
-          $("#total_pendente").append((dados.preco_total_pendente == null) ? 0 : dados.preco_total_pendente);
-          $("#total_completos").append(( dados.preco_total_completo == null) ? 0 : dados.preco_total_completo);
-          $("#total_caixa").append((dados.total_caixa == null) ? 0 : dados.total_caixa);
-         
-          var t = parseInt((dados.total_caixa == null) ? 0 : dados.total_caixa); 
-          var c = parseInt(( dados.preco_total_completo == null) ? 0 : dados.preco_total_completo);
-          var p = parseInt((dados.preco_total_pendente == null) ? 0 : dados.preco_total_pendente);
-          var porcentagemCompleto = (c / t) * 100;
-          var porcentagemPendente = (p / t) * 100;
-          var p_completo = `<div class="chart" data-percent="${porcentagemCompleto}" data-bar-color="#a7d212">
-                                <span class="percent" data-after="%">${porcentagemCompleto}</span>
-                            </div>`;
-          var p_pendente =  `<div class="chart" data-percent="${porcentagemPendente}" data-bar-color="#edc214">
-                                <span class="percent" data-after="%">${porcentagemPendente}</span>
-=======
           var dados = JSON.parse(response);
           debugger;
           $("#total_pendente").append(dados.preco_total_pendente ?? 0);
@@ -393,7 +367,6 @@ function devedores() {
                             </div>`;
           var p_pendente =  `<div class="chart" data-percent="${porcentagemPendente *2}" data-bar-color="#edc214">
                                 <span class="percent" data-after="%">${porcentagemPendente *2}</span>
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
                             </div>`;
             $("#porcentagem_completo").append(p_completo);
             $("#porcentagem_pendente").append(p_pendente);

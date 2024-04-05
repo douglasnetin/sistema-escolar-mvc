@@ -113,30 +113,6 @@ if ($acao == "plano") {
         }
 
     $stmt->close();
-<<<<<<< HEAD
-} else {
-    // Se a ação não for reconhecida, retorna uma mensagem de erro
-    $response['codigo'] = 1;
-    $response['mensagem'] = "Ação inválida: " . $acao;
-}
-
-
-
-if ($acao == "devedores") {
-    // Prepara a declaração SQL para inserção
-    $sql = "SELECT 
-                (SELECT SUM(p1.preco_plano) 
-                 FROM agendamento a1 , plano p1  
-                 WHERE a1.status = 'pendente') AS preco_total_pendente,
-                 
-                (SELECT SUM(p2.preco_plano) 
-                 FROM agendamento a2 
-                 , plano p2  
-                 WHERE a2.status = 'confirmado') AS preco_total_completo,
-
-                 (SELECT SUM(p3.preco_plano) 
-                 FROM agendamento a3 , plano p3 WHERE a3.status in ('pendente','confirmado') ) AS total_caixa";
-=======
 }
 
 
@@ -158,7 +134,6 @@ if ($acao == "devedores") {
                 INNER JOIN plano p3 on a3.plano = p3.nome_plano  
                 WHERE a3.status in 
                 ('pendente','confirmado') ) AS total_caixa";
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
     
     // Prepara a declaração SQL
     $stmt = $conn->prepare($sql);
@@ -404,8 +379,6 @@ if ($acao == "usuario") {
     $stmt->close();
 }
 
-<<<<<<< HEAD
-=======
 if ($acao == "adicionarPromocao") {
     // Ação para inserir um novo plano
     $nomePromocao = $_POST['nomePromocao'];
@@ -570,7 +543,6 @@ if ($acao == "excluir_promocao") {
         $response['mensagem'] = "ID do plano não fornecido.";
     }
 }
->>>>>>> 7af5fd3 (insersão das promoções e de planos no template de agendamento)
 
 
 echo json_encode($response);
