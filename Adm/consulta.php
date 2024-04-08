@@ -335,6 +335,38 @@ if ($acao == "excluirPlano") {
         $response['codigo'] = 1;
         $response['mensagem'] = "ID do plano não fornecido.";
     }
+}  
+if ($acao == "deletar_usuario") {
+    // Ação para excluir um agendamento
+    $id_usuario = $_POST['id_usuario'];
+
+    // Prepara a declaração SQL para excluir o agendamento
+    $sql = "DELETE FROM usuario WHERE id = ?";
+
+    // Prepara a declaração SQL
+    $stmt = $conn->prepare($sql);
+
+    // Verifica se a preparação da declaração SQL foi bem-sucedida
+    if ($stmt) {
+        // Vincula os parâmetros e executa a declaração
+        $stmt->bind_param("i", $id_usuario);
+        if ($stmt->execute()) {
+            // Se a exclusão for bem-sucedida, define o código como 0 e a mensagem de sucesso
+            $response['codigo'] = 0;
+            $response['mensagem'] = "usuario excluído com sucesso.";
+        } else {
+            // Se houver um erro na exclusão, define o código como 1 e a mensagem de erro
+            $response['codigo'] = 1;
+            $response['mensagem'] = "Erro ao excluir usuario: " . $stmt->error;
+        }
+    } else {
+        // Se houver um erro na preparação da declaração SQL, define o código como 1 e a mensagem de erro
+        $response['codigo'] = 1;
+        $response['mensagem'] = "Erro na preparação da declaração SQL: " . $conn->error;
+    }
+
+    // Fecha a declaração SQL
+    $stmt->close();
 }
 
 if ($acao == "usuario") {
