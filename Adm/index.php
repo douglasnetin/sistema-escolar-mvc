@@ -62,6 +62,7 @@ $tema = $_SESSION['tema'];
         }
     </script>
     <div class="container">
+        <input type="hidden" name="sessionId" id="sessionId" value="<?php echo $id; ?>">
         <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
@@ -437,7 +438,7 @@ $tema = $_SESSION['tema'];
     
                     
     <!--FINAL MODAL BODY -->
-
+        
 </div>
 
 

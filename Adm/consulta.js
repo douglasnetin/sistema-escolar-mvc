@@ -163,16 +163,20 @@ function obterusuario() {
             acao: 'obterUsuario'
         },
         success: function(response) {
-            debugger;
             var resultados = JSON.parse(response);
             var html= "";
+            var id = parseInt($("#sessionId").val());
             for(var i=0; i<resultados.dados.length;i++){
-                html+="<tr>"
-                html+=`<td style="text-align: center;">${resultados.dados[i].usuario}</td>`;
-                html+=`<td style="text-align: center;">${resultados.dados[i].nome}</td>`;
-                html+=`<td style="text-align: center;">${resultados.dados[i].email}</td>`;
-                html += "<td style='text-align: center;'><a href='javascript:deletarUsuario(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
-                html+="</tr>";
+                if(!(id === resultados.dados[i].id)){
+                    debugger;
+                    html+="<tr>"
+                    html+=`<td style="text-align: center;">${resultados.dados[i].usuario}</td>`;
+                    html+=`<td style="text-align: center;">${resultados.dados[i].nome}</td>`;
+                    html+=`<td style="text-align: center;">${resultados.dados[i].email}</td>`;
+                    html += "<td style='text-align: center;'><a href='javascript:deletar_usuario(" + resultados.dados[i].id + ")' style='cursor: pointer;'><span class='material-icons-sharp'>delete</span></a></td>";
+                    html+="</tr>";
+                }
+                
             }
            
           $("#usuarioModal").empty().append(html);
@@ -204,6 +208,31 @@ function deletarPromocao(id){
             }
         },error: function(xhr, status, error) {
           toastr.error("Erro ao criar plano: " + error);
+        }
+    });
+}
+
+function deletar_usuario(id){
+    if(!confirm("Deseja remover o usuario? ")){return false;}
+    $.ajax({
+        type: "POST",
+        url: "consulta.php",
+        data: {
+            acao: 'deletar_usuario',
+            id_usuario:id
+        },
+        success: function(response) {
+            var resultados = JSON.parse(response);
+            if(resultados.codigo==0){
+                toastr.success(resultados.mensagem);
+                setTimeout(function() {
+                    window.location.href = 'index.php';
+                }, 500);
+            }else{
+                toastr.error(resultados.mensagem);
+            }
+        },error: function(xhr, status, error) {
+          toastr.error("Erro ao remover usuario: " + error);
         }
     });
 }
