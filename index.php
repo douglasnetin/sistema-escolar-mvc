@@ -13,8 +13,12 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top transparent">
   <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png" alt="Google Logo" width="150" height="50">
+    <a class="navbar-brand" href="#"
+    
+    width: 300px;
+    height: 160px;
+>
+      <img src="assets/img/mulher3.png" alt="Google Logo" width="150" height="50">
     </a>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
