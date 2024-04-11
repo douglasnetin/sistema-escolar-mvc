@@ -67,8 +67,8 @@ $tema = $_SESSION['tema'];
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="images/logo.png">
-                    <h2>Asmr<span class="danger">Prog</span></h2>
+                    <img src="/assets/img/sol_invertido.png">
+                    <h2>cirley<span class="warning"> bronze</span></h2>
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">
@@ -259,9 +259,9 @@ $tema = $_SESSION['tema'];
 
             <div class="user-profile">
                 <div class="logo">
-                    <img src="images/logo.png">
-                    <h2>AsmrProg</h2>
-                    <p>Fullstack Web Developeraaaa</p>
+                    <img src="/assets/img/mulher3.png">
+                    <h2>Cirley bronze</h2>
+                    
                 </div>
             </div>
 
